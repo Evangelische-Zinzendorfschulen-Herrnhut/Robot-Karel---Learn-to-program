@@ -1,0 +1,151 @@
+{
+  "slug": "collect-beeper-towers",
+  "title": "Beeper-Türme einsammeln",
+  "prompt": "Karel startet unten links. Sammle alle Beeper aus den Türmen ein, lege sie gesammelt unten rechts ab und kehre anschließend zum Start zurück. Zerlege das Programm schrittweise in kleine Funktionen.",
+  "difficulty": "hard",
+  "orderIndex": 1,
+  "concepts": ["stepwise-refinement", "decomposition", "while-loops", "conditions"],
+  "starterCode": "from karel import *\n\n\ndef main():\n    collect_all_beepers()\n    drop_all_beepers()\n    return_home()\n\n\ndef collect_all_beepers():\n    pass\n\n\ndef collect_one_tower():\n    pass\n\n\ndef collect_line_of_beepers():\n    pass\n\n\ndef drop_all_beepers():\n    pass\n\n\ndef return_home():\n    pass\n\n\ndef move_to_wall():\n    while front_is_clear():\n        move()\n\n\ndef turn_right():\n    turn_left()\n    turn_left()\n    turn_left()\n\n\ndef turn_around():\n    turn_left()\n    turn_left()\n",
+  "initialWorld": {
+    "rows": 6,
+    "cols": 7,
+    "karel": {
+      "row": 1,
+      "col": 1,
+      "direction": "east",
+      "beeperBag": 0
+    },
+    "beepers": [
+      { "row": 1, "col": 1, "count": 1 },
+      { "row": 2, "col": 1, "count": 1 },
+      { "row": 1, "col": 3, "count": 1 },
+      { "row": 2, "col": 3, "count": 1 },
+      { "row": 3, "col": 3, "count": 1 },
+      { "row": 4, "col": 3, "count": 1 },
+      { "row": 1, "col": 5, "count": 1 },
+      { "row": 1, "col": 6, "count": 1 },
+      { "row": 2, "col": 6, "count": 1 },
+      { "row": 3, "col": 6, "count": 1 }
+    ],
+    "walls": []
+  },
+  "goalWorld": {
+    "rows": 6,
+    "cols": 7,
+    "karel": {
+      "row": 1,
+      "col": 1,
+      "direction": "east",
+      "beeperBag": 0
+    },
+    "beepers": [
+      {
+        "row": 1,
+        "col": 7,
+        "count": 10
+      }
+    ],
+    "walls": []
+  },
+  "hints": [
+    {
+      "body": "Beginne oben: main() beschreibt nur die drei Phasen sammeln, ablegen, zurückkehren."
+    },
+    {
+      "body": "Teste collect_one_tower() zuerst für einen einzelnen Turm, bevor du collect_all_beepers() als Schleife schreibst."
+    },
+    {
+      "body": "Ein Turm mit Höhe 0 muss nicht als Sonderfall behandelt werden: collect_line_of_beepers() kann einfach sofort fertig sein."
+    }
+  ],
+  "tests": [
+    {
+      "name": "7 Spalten mit leeren Feldern",
+      "isHidden": false,
+      "orderIndex": 1,
+      "initialWorld": {
+        "rows": 6,
+        "cols": 7,
+        "karel": {
+          "row": 1,
+          "col": 1,
+          "direction": "east",
+          "beeperBag": 0
+        },
+        "beepers": [
+          { "row": 1, "col": 1, "count": 1 },
+          { "row": 2, "col": 1, "count": 1 },
+          { "row": 1, "col": 3, "count": 1 },
+          { "row": 2, "col": 3, "count": 1 },
+          { "row": 3, "col": 3, "count": 1 },
+          { "row": 4, "col": 3, "count": 1 },
+          { "row": 1, "col": 5, "count": 1 },
+          { "row": 1, "col": 6, "count": 1 },
+          { "row": 2, "col": 6, "count": 1 },
+          { "row": 3, "col": 6, "count": 1 }
+        ],
+        "walls": []
+      },
+      "goalWorld": {
+        "rows": 6,
+        "cols": 7,
+        "karel": {
+          "row": 1,
+          "col": 1,
+          "direction": "east",
+          "beeperBag": 0
+        },
+        "beepers": [
+          {
+            "row": 1,
+            "col": 7,
+            "count": 10
+          }
+        ],
+        "walls": []
+      }
+    },
+    {
+      "name": "5 Spalten mit anderem Muster",
+      "isHidden": false,
+      "orderIndex": 2,
+      "initialWorld": {
+        "rows": 5,
+        "cols": 5,
+        "karel": {
+          "row": 1,
+          "col": 1,
+          "direction": "east",
+          "beeperBag": 0
+        },
+        "beepers": [
+          { "row": 1, "col": 2, "count": 1 },
+          { "row": 2, "col": 2, "count": 1 },
+          { "row": 3, "col": 2, "count": 1 },
+          { "row": 1, "col": 4, "count": 1 },
+          { "row": 2, "col": 4, "count": 1 }
+        ],
+        "walls": []
+      },
+      "goalWorld": {
+        "rows": 5,
+        "cols": 5,
+        "karel": {
+          "row": 1,
+          "col": 1,
+          "direction": "east",
+          "beeperBag": 0
+        },
+        "beepers": [
+          {
+            "row": 1,
+            "col": 5,
+            "count": 5
+          }
+        ],
+        "walls": []
+      }
+    }
+  ],
+  "isPublished": true
+}

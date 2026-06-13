@@ -1,0 +1,133 @@
+{
+  "slug": "hang-lampions",
+  "title": "Lampions aufhängen",
+  "prompt": "Karel soll in jeder Spalte einen Lampion direkt unter die Decke hängen. Die Decke ist unregelmäßig hoch. Karel startet links unten, schaut nach Osten und soll am Ende rechts unten wieder nach Osten schauen.",
+  "difficulty": "medium",
+  "orderIndex": 1,
+  "concepts": ["while-loops", "decomposition", "walls"],
+  "starterCode": "from karel import *\n\n\ndef main():\n    # Hänge in jeder Spalte einen Lampion direkt unter die Decke.\n    pass\n\n\ndef hang_one_lampion():\n    pass\n\n\ndef move_to_floor():\n    pass\n\n\ndef turn_right():\n    turn_left()\n    turn_left()\n    turn_left()\n\n\ndef turn_around():\n    turn_left()\n    turn_left()\n",
+  "initialWorld": {
+    "rows": 5,
+    "cols": 7,
+    "karel": { "row": 1, "col": 1, "direction": "east", "beeperBag": 7 },
+    "beepers": [],
+    "walls": [
+      { "row": 3, "col": 1, "edge": "north" },
+      { "row": 4, "col": 2, "edge": "north" },
+      { "row": 2, "col": 3, "edge": "north" },
+      { "row": 3, "col": 5, "edge": "north" },
+      { "row": 4, "col": 6, "edge": "north" },
+      { "row": 2, "col": 7, "edge": "north" }
+    ]
+  },
+  "goalWorld": {
+    "rows": 5,
+    "cols": 7,
+    "karel": { "row": 1, "col": 7, "direction": "east", "beeperBag": 0 },
+    "beepers": [
+      { "row": 3, "col": 1, "count": 1 },
+      { "row": 4, "col": 2, "count": 1 },
+      { "row": 2, "col": 3, "count": 1 },
+      { "row": 5, "col": 4, "count": 1 },
+      { "row": 3, "col": 5, "count": 1 },
+      { "row": 4, "col": 6, "count": 1 },
+      { "row": 2, "col": 7, "count": 1 }
+    ],
+    "walls": [
+      { "row": 3, "col": 1, "edge": "north" },
+      { "row": 4, "col": 2, "edge": "north" },
+      { "row": 2, "col": 3, "edge": "north" },
+      { "row": 3, "col": 5, "edge": "north" },
+      { "row": 4, "col": 6, "edge": "north" },
+      { "row": 2, "col": 7, "edge": "north" }
+    ]
+  },
+  "hints": [
+    { "body": "Eine gute Funktion hang_one_lampion() geht nach Norden, bis front_is_blocked() wahr ist, legt einen Beeper ab und kommt wieder zum Boden zurück." },
+    { "body": "Die Hauptfunktion kann das bekannte Reihenmuster verwenden: Solange vorne frei ist, bearbeite die aktuelle Spalte und gehe zur nächsten." },
+    { "body": "Achte darauf, dass jede Hilfsfunktion mit derselben Blickrichtung endet, mit der sie begonnen hat." }
+  ],
+  "tests": [
+    {
+      "name": "Unregelmäßige Decke",
+      "isHidden": false,
+      "orderIndex": 1,
+      "initialWorld": {
+        "rows": 5,
+        "cols": 7,
+        "karel": { "row": 1, "col": 1, "direction": "east", "beeperBag": 7 },
+        "beepers": [],
+        "walls": [
+          { "row": 3, "col": 1, "edge": "north" },
+          { "row": 4, "col": 2, "edge": "north" },
+          { "row": 2, "col": 3, "edge": "north" },
+          { "row": 3, "col": 5, "edge": "north" },
+          { "row": 4, "col": 6, "edge": "north" },
+          { "row": 2, "col": 7, "edge": "north" }
+        ]
+      },
+      "goalWorld": {
+        "rows": 5,
+        "cols": 7,
+        "karel": { "row": 1, "col": 7, "direction": "east", "beeperBag": 0 },
+        "beepers": [
+          { "row": 3, "col": 1, "count": 1 },
+          { "row": 4, "col": 2, "count": 1 },
+          { "row": 2, "col": 3, "count": 1 },
+          { "row": 5, "col": 4, "count": 1 },
+          { "row": 3, "col": 5, "count": 1 },
+          { "row": 4, "col": 6, "count": 1 },
+          { "row": 2, "col": 7, "count": 1 }
+        ],
+        "walls": [
+          { "row": 3, "col": 1, "edge": "north" },
+          { "row": 4, "col": 2, "edge": "north" },
+          { "row": 2, "col": 3, "edge": "north" },
+          { "row": 3, "col": 5, "edge": "north" },
+          { "row": 4, "col": 6, "edge": "north" },
+          { "row": 2, "col": 7, "edge": "north" }
+        ]
+      }
+    },
+    {
+      "name": "Andere Deckenhöhen",
+      "isHidden": false,
+      "orderIndex": 2,
+      "initialWorld": {
+        "rows": 5,
+        "cols": 7,
+        "karel": { "row": 1, "col": 1, "direction": "east", "beeperBag": 7 },
+        "beepers": [],
+        "walls": [
+          { "row": 2, "col": 1, "edge": "north" },
+          { "row": 4, "col": 3, "edge": "north" },
+          { "row": 3, "col": 4, "edge": "north" },
+          { "row": 2, "col": 5, "edge": "north" },
+          { "row": 3, "col": 7, "edge": "north" }
+        ]
+      },
+      "goalWorld": {
+        "rows": 5,
+        "cols": 7,
+        "karel": { "row": 1, "col": 7, "direction": "east", "beeperBag": 0 },
+        "beepers": [
+          { "row": 2, "col": 1, "count": 1 },
+          { "row": 5, "col": 2, "count": 1 },
+          { "row": 4, "col": 3, "count": 1 },
+          { "row": 3, "col": 4, "count": 1 },
+          { "row": 2, "col": 5, "count": 1 },
+          { "row": 5, "col": 6, "count": 1 },
+          { "row": 3, "col": 7, "count": 1 }
+        ],
+        "walls": [
+          { "row": 2, "col": 1, "edge": "north" },
+          { "row": 4, "col": 3, "edge": "north" },
+          { "row": 3, "col": 4, "edge": "north" },
+          { "row": 2, "col": 5, "edge": "north" },
+          { "row": 3, "col": 7, "edge": "north" }
+        ]
+      }
+    }
+  ],
+  "isPublished": true
+}

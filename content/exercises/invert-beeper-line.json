@@ -1,0 +1,228 @@
+{
+  "slug": "invert-beeper-line",
+  "title": "Beeper-Reihe invertieren",
+  "prompt": "Karel läuft eine Reihe entlang. Auf jedem Feld soll danach genau das Gegenteil gelten: Lag dort ein Beeper, soll er aufgehoben werden. Lag dort keiner, soll Karel einen Beeper ablegen.",
+  "difficulty": "medium",
+  "orderIndex": 1,
+  "concepts": ["conditionals", "if-else", "while-loops"],
+  "starterCode": "from karel import *\n\n\ndef main():\n    while front_is_clear():\n        invert_beeper()\n        move()\n    invert_beeper()\n\n\ndef invert_beeper():\n    # Wenn ein Beeper da ist: aufheben. Sonst: einen ablegen.\n    pass\n",
+  "initialWorld": {
+    "rows": 1,
+    "cols": 7,
+    "karel": {
+      "row": 1,
+      "col": 1,
+      "direction": "east",
+      "beeperBag": 4
+    },
+    "beepers": [
+      {
+        "row": 1,
+        "col": 1,
+        "count": 1
+      },
+      {
+        "row": 1,
+        "col": 3,
+        "count": 1
+      },
+      {
+        "row": 1,
+        "col": 6,
+        "count": 1
+      }
+    ],
+    "walls": []
+  },
+  "goalWorld": {
+    "rows": 1,
+    "cols": 7,
+    "karel": {
+      "row": 1,
+      "col": 7,
+      "direction": "east",
+      "beeperBag": 3
+    },
+    "beepers": [
+      {
+        "row": 1,
+        "col": 2,
+        "count": 1
+      },
+      {
+        "row": 1,
+        "col": 4,
+        "count": 1
+      },
+      {
+        "row": 1,
+        "col": 5,
+        "count": 1
+      },
+      {
+        "row": 1,
+        "col": 7,
+        "count": 1
+      }
+    ],
+    "walls": []
+  },
+  "hints": [
+    {
+      "body": "Die Entscheidung gehört in invert_beeper(): if beepers_present(): pick_beeper(), sonst put_beeper()."
+    },
+    {
+      "body": "Wie bei der Beeper-Linie aus Kapitel 6 brauchst du nach der while-Schleife noch einen letzten Aufruf von invert_beeper()."
+    }
+  ],
+  "tests": [
+    {
+      "name": "7 Felder",
+      "isHidden": false,
+      "orderIndex": 1,
+      "initialWorld": {
+        "rows": 1,
+        "cols": 7,
+        "karel": {
+          "row": 1,
+          "col": 1,
+          "direction": "east",
+          "beeperBag": 4
+        },
+        "beepers": [
+          {
+            "row": 1,
+            "col": 1,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 3,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 6,
+            "count": 1
+          }
+        ],
+        "walls": []
+      },
+      "goalWorld": {
+        "rows": 1,
+        "cols": 7,
+        "karel": {
+          "row": 1,
+          "col": 7,
+          "direction": "east",
+          "beeperBag": 3
+        },
+        "beepers": [
+          {
+            "row": 1,
+            "col": 2,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 4,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 5,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 7,
+            "count": 1
+          }
+        ],
+        "walls": []
+      }
+    },
+    {
+      "name": "10 Felder",
+      "isHidden": false,
+      "orderIndex": 2,
+      "initialWorld": {
+        "rows": 1,
+        "cols": 10,
+        "karel": {
+          "row": 1,
+          "col": 1,
+          "direction": "east",
+          "beeperBag": 6
+        },
+        "beepers": [
+          {
+            "row": 1,
+            "col": 1,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 2,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 5,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 10,
+            "count": 1
+          }
+        ],
+        "walls": []
+      },
+      "goalWorld": {
+        "rows": 1,
+        "cols": 10,
+        "karel": {
+          "row": 1,
+          "col": 10,
+          "direction": "east",
+          "beeperBag": 4
+        },
+        "beepers": [
+          {
+            "row": 1,
+            "col": 3,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 4,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 6,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 7,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 8,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 9,
+            "count": 1
+          }
+        ],
+        "walls": []
+      }
+    }
+  ],
+  "isPublished": true
+}

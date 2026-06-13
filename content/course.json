@@ -1,0 +1,96 @@
+{
+  "slug": "python-karel",
+  "title": "Python mit Karel lernen",
+  "description": "Ein deutschsprachiger Einstieg in Programmierung mit Karel, Python und interaktiven Aufgaben.",
+  "language": "de",
+  "chapters": [
+    {
+      "slug": "karel-kennenlernen",
+      "title": "Karel kennenlernen",
+      "summary": "Erste Befehle, Karel-Welten und einfache Sequenzen.",
+      "orderIndex": 1,
+      "mdxPath": "content/chapters/karel-kennenlernen.mdx",
+      "exerciseSlugs": ["first-step"]
+    },
+    {
+      "slug": "programmieren",
+      "title": "Programmieren",
+      "summary": "Wie ein Karel-Programm aufgebaut ist: Kommentare, Import, main() und Befehlsfolgen.",
+      "orderIndex": 2,
+      "mdxPath": "content/chapters/programmieren.mdx",
+      "exerciseSlugs": ["place-beeper-on-ledge"]
+    },
+    {
+      "slug": "neue-funktionen",
+      "title": "Neue Funktionen",
+      "summary": "Eigene Befehle definieren und wiederverwenden, zum Beispiel turn_right().",
+      "orderIndex": 3,
+      "mdxPath": "content/chapters/neue-funktionen.mdx",
+      "exerciseSlugs": ["define-turn-right", "collect-newspaper"]
+    },
+    {
+      "slug": "zerlegung",
+      "title": "Zerlegung",
+      "summary": "Große Aufgaben in kleinere Teilprobleme zerlegen und mit Funktionen klar strukturieren.",
+      "orderIndex": 4,
+      "mdxPath": "content/chapters/zerlegung.mdx",
+      "exerciseSlugs": ["fill-pothole"]
+    },
+    {
+      "slug": "for-schleifen",
+      "title": "For-Schleifen",
+      "summary": "Einen Codeblock mit for i in range(...) eine feste Anzahl von Malen wiederholen.",
+      "orderIndex": 5,
+      "mdxPath": "content/chapters/for-schleifen.mdx",
+      "exerciseSlugs": ["mark-four-corners", "repair-four-potholes"]
+    },
+    {
+      "slug": "while-schleifen",
+      "title": "While-Schleifen",
+      "summary": "Code wiederholen, solange eine Bedingung wie front_is_clear() wahr ist.",
+      "orderIndex": 6,
+      "mdxPath": "content/chapters/while-schleifen.mdx",
+      "exerciseSlugs": ["beeper-line-to-wall", "collect-opposite-corners"]
+    },
+    {
+      "slug": "bedingungen",
+      "title": "Bedingungen",
+      "summary": "Mit if und if/else abhängig vom Zustand der Welt entscheiden.",
+      "orderIndex": 7,
+      "mdxPath": "content/chapters/bedingungen.mdx",
+      "exerciseSlugs": ["invert-beeper-line"]
+    },
+    {
+      "slug": "verfeinerung",
+      "title": "Schrittweise Verfeinerung",
+      "summary": "Ein großes Problem von oben nach unten in testbare Teilprobleme zerlegen.",
+      "orderIndex": 8,
+      "mdxPath": "content/chapters/verfeinerung.mdx",
+      "exerciseSlugs": ["collect-beeper-towers"]
+    },
+    {
+      "slug": "extras",
+      "title": "Extras",
+      "summary": "Zusätzliche Karel-Funktionen wie das Bemalen von Feldern.",
+      "orderIndex": 9,
+      "mdxPath": "content/chapters/extras.mdx",
+      "exerciseSlugs": ["paint-blue-diagonal"]
+    },
+    {
+      "slug": "referenz",
+      "title": "Referenz",
+      "summary": "Alle bisher unterstützten Karel-Befehle, Bedingungen und Kontrollstrukturen auf einer Seite.",
+      "orderIndex": 10,
+      "mdxPath": "content/chapters/referenz.mdx",
+      "exerciseSlugs": []
+    },
+    {
+      "slug": "uebungen",
+      "title": "Weitere Übungen",
+      "summary": "Zusätzliche Karel-Aufgaben, inspiriert von FredOverflows Karel-Implementation.",
+      "orderIndex": 11,
+      "mdxPath": "content/chapters/uebungen.mdx",
+      "exerciseSlugs": ["hang-lampions", "clean-tunnels", "jump-hurdles"]
+    }
+  ]
+}

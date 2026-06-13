@@ -1,0 +1,107 @@
+{
+  "slug": "jump-hurdles",
+  "title": "Hürdenlauf",
+  "prompt": "Karel läuft auf der unteren Reihe nach Osten. Wenn eine Hürde im Weg steht, soll Karel darüberklettern und danach weiterlaufen. Am Ziel liegt ein Beeper als Medaille.",
+  "difficulty": "hard",
+  "orderIndex": 3,
+  "concepts": ["while-loops", "conditions", "decomposition"],
+  "starterCode": "from karel import *\n\n\ndef main():\n    # Laufe bis zur Medaille und springe über jede Hürde.\n    pass\n\n\ndef jump_hurdle():\n    pass\n\n\ndef turn_right():\n    turn_left()\n    turn_left()\n    turn_left()\n",
+  "initialWorld": {
+    "rows": 5,
+    "cols": 9,
+    "karel": { "row": 1, "col": 1, "direction": "east", "beeperBag": 0 },
+    "beepers": [{ "row": 1, "col": 9, "count": 1 }],
+    "walls": [
+      { "row": 1, "col": 2, "edge": "east" },
+      { "row": 2, "col": 2, "edge": "east" },
+      { "row": 1, "col": 5, "edge": "east" },
+      { "row": 2, "col": 5, "edge": "east" },
+      { "row": 3, "col": 5, "edge": "east" }
+    ]
+  },
+  "goalWorld": {
+    "rows": 5,
+    "cols": 9,
+    "karel": { "row": 1, "col": 9, "direction": "east", "beeperBag": 1 },
+    "beepers": [],
+    "walls": [
+      { "row": 1, "col": 2, "edge": "east" },
+      { "row": 2, "col": 2, "edge": "east" },
+      { "row": 1, "col": 5, "edge": "east" },
+      { "row": 2, "col": 5, "edge": "east" },
+      { "row": 3, "col": 5, "edge": "east" }
+    ]
+  },
+  "hints": [
+    { "body": "Wenn Karel nach Osten schaut und front_is_blocked() wahr ist, steht direkt vor ihm eine Hürde." },
+    { "body": "Beim Hochklettern ist rechts von Karel so lange blockiert, bis er über der Hürde angekommen ist." },
+    { "body": "Nach dem Überqueren kann Karel nach Süden laufen, bis die untere Wand erreicht ist, und sich wieder nach Osten drehen." }
+  ],
+  "tests": [
+    {
+      "name": "Zwei Hürden",
+      "isHidden": false,
+      "orderIndex": 1,
+      "initialWorld": {
+        "rows": 5,
+        "cols": 9,
+        "karel": { "row": 1, "col": 1, "direction": "east", "beeperBag": 0 },
+        "beepers": [{ "row": 1, "col": 9, "count": 1 }],
+        "walls": [
+          { "row": 1, "col": 2, "edge": "east" },
+          { "row": 2, "col": 2, "edge": "east" },
+          { "row": 1, "col": 5, "edge": "east" },
+          { "row": 2, "col": 5, "edge": "east" },
+          { "row": 3, "col": 5, "edge": "east" }
+        ]
+      },
+      "goalWorld": {
+        "rows": 5,
+        "cols": 9,
+        "karel": { "row": 1, "col": 9, "direction": "east", "beeperBag": 1 },
+        "beepers": [],
+        "walls": [
+          { "row": 1, "col": 2, "edge": "east" },
+          { "row": 2, "col": 2, "edge": "east" },
+          { "row": 1, "col": 5, "edge": "east" },
+          { "row": 2, "col": 5, "edge": "east" },
+          { "row": 3, "col": 5, "edge": "east" }
+        ]
+      }
+    },
+    {
+      "name": "Drei Hürden",
+      "isHidden": false,
+      "orderIndex": 2,
+      "initialWorld": {
+        "rows": 5,
+        "cols": 9,
+        "karel": { "row": 1, "col": 1, "direction": "east", "beeperBag": 0 },
+        "beepers": [{ "row": 1, "col": 9, "count": 1 }],
+        "walls": [
+          { "row": 1, "col": 1, "edge": "east" },
+          { "row": 1, "col": 3, "edge": "east" },
+          { "row": 2, "col": 3, "edge": "east" },
+          { "row": 3, "col": 3, "edge": "east" },
+          { "row": 1, "col": 6, "edge": "east" },
+          { "row": 2, "col": 6, "edge": "east" }
+        ]
+      },
+      "goalWorld": {
+        "rows": 5,
+        "cols": 9,
+        "karel": { "row": 1, "col": 9, "direction": "east", "beeperBag": 1 },
+        "beepers": [],
+        "walls": [
+          { "row": 1, "col": 1, "edge": "east" },
+          { "row": 1, "col": 3, "edge": "east" },
+          { "row": 2, "col": 3, "edge": "east" },
+          { "row": 3, "col": 3, "edge": "east" },
+          { "row": 1, "col": 6, "edge": "east" },
+          { "row": 2, "col": 6, "edge": "east" }
+        ]
+      }
+    }
+  ],
+  "isPublished": true
+}

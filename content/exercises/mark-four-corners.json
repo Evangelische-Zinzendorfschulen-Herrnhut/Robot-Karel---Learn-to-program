@@ -1,0 +1,115 @@
+{
+  "slug": "mark-four-corners",
+  "title": "Vier Felder markieren",
+  "prompt": "Karel soll in einer 2x2-Welt auf jedes Feld einen Beeper legen und am Ende wieder am Start stehen. Verwende dafür eine for-Schleife.",
+  "difficulty": "easy",
+  "orderIndex": 1,
+  "concepts": ["for-loops", "preconditions", "postconditions"],
+  "starterCode": "from karel import *\n\n\ndef main():\n    for i in range(4):\n        put_beeper()\n        move()\n        turn_left()\n",
+  "initialWorld": {
+    "rows": 2,
+    "cols": 2,
+    "karel": {
+      "row": 1,
+      "col": 1,
+      "direction": "east",
+      "beeperBag": 4
+    },
+    "beepers": [],
+    "walls": []
+  },
+  "goalWorld": {
+    "rows": 2,
+    "cols": 2,
+    "karel": {
+      "row": 1,
+      "col": 1,
+      "direction": "east",
+      "beeperBag": 0
+    },
+    "beepers": [
+      {
+        "row": 1,
+        "col": 1,
+        "count": 1
+      },
+      {
+        "row": 1,
+        "col": 2,
+        "count": 1
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "count": 1
+      },
+      {
+        "row": 2,
+        "col": 2,
+        "count": 1
+      }
+    ],
+    "walls": []
+  },
+  "hints": [
+    {
+      "body": "Der Körper der Schleife besteht aus drei Befehlen: Beeper ablegen, weitergehen, links drehen."
+    },
+    {
+      "body": "Nach jeder Wiederholung muss Karel wieder bereit sein, das nächste leere Feld anzusteuern."
+    }
+  ],
+  "tests": [
+    {
+      "name": "2x2-Welt",
+      "isHidden": false,
+      "orderIndex": 1,
+      "initialWorld": {
+        "rows": 2,
+        "cols": 2,
+        "karel": {
+          "row": 1,
+          "col": 1,
+          "direction": "east",
+          "beeperBag": 4
+        },
+        "beepers": [],
+        "walls": []
+      },
+      "goalWorld": {
+        "rows": 2,
+        "cols": 2,
+        "karel": {
+          "row": 1,
+          "col": 1,
+          "direction": "east",
+          "beeperBag": 0
+        },
+        "beepers": [
+          {
+            "row": 1,
+            "col": 1,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 2,
+            "count": 1
+          },
+          {
+            "row": 2,
+            "col": 1,
+            "count": 1
+          },
+          {
+            "row": 2,
+            "col": 2,
+            "count": 1
+          }
+        ],
+        "walls": []
+      }
+    }
+  ],
+  "isPublished": true
+}

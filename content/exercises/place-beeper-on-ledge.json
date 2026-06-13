@@ -1,0 +1,97 @@
+{
+  "slug": "place-beeper-on-ledge",
+  "title": "Beeper auf die Reihe legen",
+  "prompt": "Karel soll den Beeper einsammeln, auf die höhere Reihe steigen, den Beeper in die Mitte der Reihe legen und danach ein Feld weitergehen.",
+  "difficulty": "easy",
+  "orderIndex": 1,
+  "concepts": ["sequencing", "functions", "turning"],
+  "starterCode": "from karel import *\n\n\ndef main():\n    move()\n    pick_beeper()\n    move()\n    turn_left()\n",
+  "initialWorld": {
+    "rows": 3,
+    "cols": 5,
+    "karel": {
+      "row": 1,
+      "col": 1,
+      "direction": "east",
+      "beeperBag": 0
+    },
+    "beepers": [
+      {
+        "row": 1,
+        "col": 2,
+        "count": 1
+      }
+    ],
+    "walls": []
+  },
+  "goalWorld": {
+    "rows": 3,
+    "cols": 5,
+    "karel": {
+      "row": 2,
+      "col": 5,
+      "direction": "east",
+      "beeperBag": 0
+    },
+    "beepers": [
+      {
+        "row": 2,
+        "col": 4,
+        "count": 1
+      }
+    ],
+    "walls": []
+  },
+  "hints": [
+    {
+      "body": "Nach dem Aufheben des Beepers muss Karel zur höheren Reihe wechseln."
+    },
+    {
+      "body": "Wenn du nur turn_left() verwendest, kannst du rechts abbiegen, indem du dich dreimal links drehst."
+    }
+  ],
+  "tests": [
+    {
+      "name": "Reihe",
+      "isHidden": false,
+      "orderIndex": 1,
+      "initialWorld": {
+        "rows": 3,
+        "cols": 5,
+        "karel": {
+          "row": 1,
+          "col": 1,
+          "direction": "east",
+          "beeperBag": 0
+        },
+        "beepers": [
+          {
+            "row": 1,
+            "col": 2,
+            "count": 1
+          }
+        ],
+        "walls": []
+      },
+      "goalWorld": {
+        "rows": 3,
+        "cols": 5,
+        "karel": {
+          "row": 2,
+          "col": 5,
+          "direction": "east",
+          "beeperBag": 0
+        },
+        "beepers": [
+          {
+            "row": 2,
+            "col": 4,
+            "count": 1
+          }
+        ],
+        "walls": []
+      }
+    }
+  ],
+  "isPublished": true
+}

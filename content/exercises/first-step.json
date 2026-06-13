@@ -1,0 +1,85 @@
+{
+  "slug": "first-step",
+  "title": "Der erste Schritt",
+  "prompt": "Bringe Karel zum Beeper und sammle ihn auf.",
+  "difficulty": "intro",
+  "orderIndex": 1,
+  "concepts": ["commands", "sequencing"],
+  "starterCode": "from karel import *\n\n\ndef main():\n    pass\n",
+  "initialWorld": {
+    "rows": 1,
+    "cols": 3,
+    "karel": {
+      "row": 1,
+      "col": 1,
+      "direction": "east",
+      "beeperBag": 0
+    },
+    "beepers": [
+      {
+        "row": 1,
+        "col": 2,
+        "count": 1
+      }
+    ],
+    "walls": []
+  },
+  "goalWorld": {
+    "rows": 1,
+    "cols": 3,
+    "karel": {
+      "row": 1,
+      "col": 2,
+      "direction": "east",
+      "beeperBag": 1
+    },
+    "beepers": [],
+    "walls": []
+  },
+  "hints": [
+    {
+      "body": "Karel muss zuerst ein Feld nach vorne gehen."
+    },
+    {
+      "body": "Wenn Karel auf dem Beeper steht, kann pick_beeper() ihn einsammeln."
+    }
+  ],
+  "tests": [
+    {
+      "name": "sichtbarer Test",
+      "isHidden": false,
+      "orderIndex": 1,
+      "initialWorld": {
+        "rows": 1,
+        "cols": 3,
+        "karel": {
+          "row": 1,
+          "col": 1,
+          "direction": "east",
+          "beeperBag": 0
+        },
+        "beepers": [
+          {
+            "row": 1,
+            "col": 2,
+            "count": 1
+          }
+        ],
+        "walls": []
+      },
+      "goalWorld": {
+        "rows": 1,
+        "cols": 3,
+        "karel": {
+          "row": 1,
+          "col": 2,
+          "direction": "east",
+          "beeperBag": 1
+        },
+        "beepers": [],
+        "walls": []
+      }
+    }
+  ],
+  "isPublished": true
+}

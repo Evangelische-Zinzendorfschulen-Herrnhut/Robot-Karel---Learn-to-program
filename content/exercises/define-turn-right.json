@@ -1,0 +1,97 @@
+{
+  "slug": "define-turn-right",
+  "title": "turn_right() definieren",
+  "prompt": "Karel soll den Beeper einsammeln, auf die höhere Reihe steigen, den Beeper dort ablegen und danach ein Feld weitergehen. Definiere dafür eine eigene Funktion turn_right().",
+  "difficulty": "easy",
+  "orderIndex": 1,
+  "concepts": ["functions", "code-blocks", "turning"],
+  "starterCode": "from karel import *\n\n\ndef main():\n    move()\n    pick_beeper()\n    move()\n    turn_left()\n    move()\n    turn_right()\n    move()\n    put_beeper()\n    move()\n\n\ndef turn_right():\n    pass\n",
+  "initialWorld": {
+    "rows": 3,
+    "cols": 5,
+    "karel": {
+      "row": 1,
+      "col": 1,
+      "direction": "east",
+      "beeperBag": 0
+    },
+    "beepers": [
+      {
+        "row": 1,
+        "col": 2,
+        "count": 1
+      }
+    ],
+    "walls": []
+  },
+  "goalWorld": {
+    "rows": 3,
+    "cols": 5,
+    "karel": {
+      "row": 2,
+      "col": 5,
+      "direction": "east",
+      "beeperBag": 0
+    },
+    "beepers": [
+      {
+        "row": 2,
+        "col": 4,
+        "count": 1
+      }
+    ],
+    "walls": []
+  },
+  "hints": [
+    {
+      "body": "Eine Funktion besteht aus einer def-Zeile und einem eingerückten Codeblock darunter."
+    },
+    {
+      "body": "Karel kann rechts abbiegen, indem er dreimal turn_left() ausführt."
+    }
+  ],
+  "tests": [
+    {
+      "name": "Eigene Rechtsdrehung",
+      "isHidden": false,
+      "orderIndex": 1,
+      "initialWorld": {
+        "rows": 3,
+        "cols": 5,
+        "karel": {
+          "row": 1,
+          "col": 1,
+          "direction": "east",
+          "beeperBag": 0
+        },
+        "beepers": [
+          {
+            "row": 1,
+            "col": 2,
+            "count": 1
+          }
+        ],
+        "walls": []
+      },
+      "goalWorld": {
+        "rows": 3,
+        "cols": 5,
+        "karel": {
+          "row": 2,
+          "col": 5,
+          "direction": "east",
+          "beeperBag": 0
+        },
+        "beepers": [
+          {
+            "row": 2,
+            "col": 4,
+            "count": 1
+          }
+        ],
+        "walls": []
+      }
+    }
+  ],
+  "isPublished": true
+}

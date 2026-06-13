@@ -1,0 +1,181 @@
+{
+  "slug": "collect-opposite-corners",
+  "title": "Beeper in gegenüberliegenden Feldern",
+  "prompt": "Karel startet in Feld 1,1 und schaut nach Osten. In Feld 8,1 und Feld 1,8 liegt jeweils ein Beeper. Sammle beide Beeper ein und kehre anschließend wieder zum Start zurück. Dein Programm soll auch für 10x10- und 12x12-Welten funktionieren.",
+  "difficulty": "medium",
+  "orderIndex": 2,
+  "concepts": ["while-loops", "decomposition", "generalization"],
+  "starterCode": "from karel import *\n\n\ndef main():\n    # Sammle beide Beeper ein und kehre zum Start zurück.\n    pass\n\n\ndef move_to_wall():\n    # Gehe vorwärts, bis Karel direkt vor einer Wand steht.\n    pass\n\n\ndef turn_right():\n    turn_left()\n    turn_left()\n    turn_left()\n\n\ndef turn_around():\n    turn_left()\n    turn_left()\n",
+  "initialWorld": {
+    "rows": 8,
+    "cols": 8,
+    "karel": {
+      "row": 1,
+      "col": 1,
+      "direction": "east",
+      "beeperBag": 0
+    },
+    "beepers": [
+      {
+        "row": 1,
+        "col": 8,
+        "count": 1
+      },
+      {
+        "row": 8,
+        "col": 1,
+        "count": 1
+      }
+    ],
+    "walls": []
+  },
+  "goalWorld": {
+    "rows": 8,
+    "cols": 8,
+    "karel": {
+      "row": 1,
+      "col": 1,
+      "direction": "east",
+      "beeperBag": 2
+    },
+    "beepers": [],
+    "walls": []
+  },
+  "hints": [
+    {
+      "body": "Schreibe keinen Code, der genau siebenmal move() ausführt. Nutze stattdessen while front_is_clear()."
+    },
+    {
+      "body": "Eine Hilfsfunktion wie move_to_wall() kann dich in jeder quadratischen Welt bis zum Rand bringen."
+    },
+    {
+      "body": "Eine weitere eigene Funktion get_beeper() kann den Ablauf klarer machen: bis zum Beeper gehen, ihn aufheben und wieder zurückdrehen."
+    },
+    {
+      "body": "Nach dem ersten Beeper musst du zurück zum Startfeld, dich nach Norden drehen, den zweiten Beeper holen und wieder zurückkehren."
+    }
+  ],
+  "tests": [
+    {
+      "name": "8x8-Welt",
+      "isHidden": false,
+      "orderIndex": 1,
+      "initialWorld": {
+        "rows": 8,
+        "cols": 8,
+        "karel": {
+          "row": 1,
+          "col": 1,
+          "direction": "east",
+          "beeperBag": 0
+        },
+        "beepers": [
+          {
+            "row": 1,
+            "col": 8,
+            "count": 1
+          },
+          {
+            "row": 8,
+            "col": 1,
+            "count": 1
+          }
+        ],
+        "walls": []
+      },
+      "goalWorld": {
+        "rows": 8,
+        "cols": 8,
+        "karel": {
+          "row": 1,
+          "col": 1,
+          "direction": "east",
+          "beeperBag": 2
+        },
+        "beepers": [],
+        "walls": []
+      }
+    },
+    {
+      "name": "10x10-Welt",
+      "isHidden": false,
+      "orderIndex": 2,
+      "initialWorld": {
+        "rows": 10,
+        "cols": 10,
+        "karel": {
+          "row": 1,
+          "col": 1,
+          "direction": "east",
+          "beeperBag": 0
+        },
+        "beepers": [
+          {
+            "row": 1,
+            "col": 10,
+            "count": 1
+          },
+          {
+            "row": 10,
+            "col": 1,
+            "count": 1
+          }
+        ],
+        "walls": []
+      },
+      "goalWorld": {
+        "rows": 10,
+        "cols": 10,
+        "karel": {
+          "row": 1,
+          "col": 1,
+          "direction": "east",
+          "beeperBag": 2
+        },
+        "beepers": [],
+        "walls": []
+      }
+    },
+    {
+      "name": "12x12-Welt",
+      "isHidden": false,
+      "orderIndex": 3,
+      "initialWorld": {
+        "rows": 12,
+        "cols": 12,
+        "karel": {
+          "row": 1,
+          "col": 1,
+          "direction": "east",
+          "beeperBag": 0
+        },
+        "beepers": [
+          {
+            "row": 1,
+            "col": 12,
+            "count": 1
+          },
+          {
+            "row": 12,
+            "col": 1,
+            "count": 1
+          }
+        ],
+        "walls": []
+      },
+      "goalWorld": {
+        "rows": 12,
+        "cols": 12,
+        "karel": {
+          "row": 1,
+          "col": 1,
+          "direction": "east",
+          "beeperBag": 2
+        },
+        "beepers": [],
+        "walls": []
+      }
+    }
+  ],
+  "isPublished": true
+}

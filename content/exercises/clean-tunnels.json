@@ -1,0 +1,116 @@
+{
+  "slug": "clean-tunnels",
+  "title": "Tunnel säubern",
+  "prompt": "Karel steht vor mehreren senkrechten Tunneln. In jedem Tunnel liegen unterschiedlich viele Beeper. Sammle alle Beeper ein und bringe Karel am Ende unten rechts wieder in Blickrichtung Osten.",
+  "difficulty": "medium",
+  "orderIndex": 2,
+  "concepts": ["while-loops", "decomposition", "generalization"],
+  "starterCode": "from karel import *\n\n\ndef main():\n    # Säubere jeden Tunnel und gehe dann zum nächsten.\n    pass\n\n\ndef clean_one_tunnel():\n    pass\n\n\ndef return_to_floor():\n    pass\n\n\ndef turn_right():\n    turn_left()\n    turn_left()\n    turn_left()\n\n\ndef turn_around():\n    turn_left()\n    turn_left()\n",
+  "initialWorld": {
+    "rows": 5,
+    "cols": 6,
+    "karel": { "row": 1, "col": 1, "direction": "east", "beeperBag": 0 },
+    "beepers": [
+      { "row": 1, "col": 1, "count": 1 },
+      { "row": 2, "col": 1, "count": 1 },
+      { "row": 1, "col": 2, "count": 1 },
+      { "row": 2, "col": 2, "count": 1 },
+      { "row": 3, "col": 2, "count": 1 },
+      { "row": 4, "col": 2, "count": 1 },
+      { "row": 1, "col": 3, "count": 1 },
+      { "row": 1, "col": 4, "count": 1 },
+      { "row": 2, "col": 4, "count": 1 },
+      { "row": 3, "col": 4, "count": 1 },
+      { "row": 4, "col": 4, "count": 1 },
+      { "row": 5, "col": 4, "count": 1 },
+      { "row": 1, "col": 5, "count": 1 },
+      { "row": 2, "col": 5, "count": 1 },
+      { "row": 3, "col": 5, "count": 1 }
+    ],
+    "walls": []
+  },
+  "goalWorld": {
+    "rows": 5,
+    "cols": 6,
+    "karel": { "row": 1, "col": 6, "direction": "east", "beeperBag": 15 },
+    "beepers": [],
+    "walls": []
+  },
+  "hints": [
+    { "body": "In clean_one_tunnel() kannst du nach Norden schauen, jedes Feld prüfen und am Ende wieder nach unten zurückgehen." },
+    { "body": "Auch der letzte Tunnel muss noch bearbeitet werden, nachdem die while-Schleife der Reihe endet." },
+    { "body": "Wenn in einem Feld kein Beeper liegt, darf pick_beeper() nicht ausgeführt werden. Nutze if beepers_present()." }
+  ],
+  "tests": [
+    {
+      "name": "Sechs Tunnel",
+      "isHidden": false,
+      "orderIndex": 1,
+      "initialWorld": {
+        "rows": 5,
+        "cols": 6,
+        "karel": { "row": 1, "col": 1, "direction": "east", "beeperBag": 0 },
+        "beepers": [
+          { "row": 1, "col": 1, "count": 1 },
+          { "row": 2, "col": 1, "count": 1 },
+          { "row": 1, "col": 2, "count": 1 },
+          { "row": 2, "col": 2, "count": 1 },
+          { "row": 3, "col": 2, "count": 1 },
+          { "row": 4, "col": 2, "count": 1 },
+          { "row": 1, "col": 3, "count": 1 },
+          { "row": 1, "col": 4, "count": 1 },
+          { "row": 2, "col": 4, "count": 1 },
+          { "row": 3, "col": 4, "count": 1 },
+          { "row": 4, "col": 4, "count": 1 },
+          { "row": 5, "col": 4, "count": 1 },
+          { "row": 1, "col": 5, "count": 1 },
+          { "row": 2, "col": 5, "count": 1 },
+          { "row": 3, "col": 5, "count": 1 }
+        ],
+        "walls": []
+      },
+      "goalWorld": {
+        "rows": 5,
+        "cols": 6,
+        "karel": { "row": 1, "col": 6, "direction": "east", "beeperBag": 15 },
+        "beepers": [],
+        "walls": []
+      }
+    },
+    {
+      "name": "Andere Tunnelhoehen",
+      "isHidden": false,
+      "orderIndex": 2,
+      "initialWorld": {
+        "rows": 5,
+        "cols": 6,
+        "karel": { "row": 1, "col": 1, "direction": "east", "beeperBag": 0 },
+        "beepers": [
+          { "row": 1, "col": 1, "count": 1 },
+          { "row": 2, "col": 1, "count": 1 },
+          { "row": 3, "col": 1, "count": 1 },
+          { "row": 4, "col": 1, "count": 1 },
+          { "row": 5, "col": 1, "count": 1 },
+          { "row": 1, "col": 3, "count": 1 },
+          { "row": 2, "col": 3, "count": 1 },
+          { "row": 1, "col": 4, "count": 1 },
+          { "row": 1, "col": 5, "count": 1 },
+          { "row": 2, "col": 5, "count": 1 },
+          { "row": 3, "col": 5, "count": 1 },
+          { "row": 4, "col": 5, "count": 1 },
+          { "row": 1, "col": 6, "count": 1 },
+          { "row": 2, "col": 6, "count": 1 }
+        ],
+        "walls": []
+      },
+      "goalWorld": {
+        "rows": 5,
+        "cols": 6,
+        "karel": { "row": 1, "col": 6, "direction": "east", "beeperBag": 14 },
+        "beepers": [],
+        "walls": []
+      }
+    }
+  ],
+  "isPublished": true
+}

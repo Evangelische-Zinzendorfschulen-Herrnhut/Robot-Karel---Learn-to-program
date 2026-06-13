@@ -1,0 +1,231 @@
+{
+  "slug": "repair-four-potholes",
+  "title": "Vier Schlaglöcher reparieren",
+  "prompt": "Karel läuft eine Straße entlang, in der vier Schlaglöcher offen sind. Fülle jedes Schlagloch mit einem Beeper und nutze dafür eine for-Schleife.",
+  "difficulty": "medium",
+  "orderIndex": 2,
+  "concepts": ["for-loops", "decomposition", "functions"],
+  "starterCode": "from karel import *\n\n\ndef main():\n    # Fülle alle vier Schlaglöcher.\n    pass\n\n\ndef fill_pothole():\n    pass\n\n\ndef turn_right():\n    turn_left()\n    turn_left()\n    turn_left()\n\n\ndef turn_around():\n    turn_left()\n    turn_left()\n",
+  "initialWorld": {
+    "rows": 3,
+    "cols": 10,
+    "karel": {
+      "row": 2,
+      "col": 1,
+      "direction": "east",
+      "beeperBag": 4
+    },
+    "beepers": [],
+    "walls": [
+      { "row": 2, "col": 1, "edge": "north" },
+      { "row": 2, "col": 1, "edge": "south" },
+      { "row": 2, "col": 2, "edge": "north" },
+      { "row": 2, "col": 3, "edge": "north" },
+      { "row": 2, "col": 3, "edge": "south" },
+      { "row": 2, "col": 4, "edge": "north" },
+      { "row": 2, "col": 5, "edge": "north" },
+      { "row": 2, "col": 5, "edge": "south" },
+      { "row": 2, "col": 6, "edge": "north" },
+      { "row": 2, "col": 7, "edge": "north" },
+      { "row": 2, "col": 7, "edge": "south" },
+      { "row": 2, "col": 8, "edge": "north" },
+      { "row": 2, "col": 9, "edge": "north" },
+      { "row": 2, "col": 9, "edge": "south" },
+      { "row": 2, "col": 10, "edge": "north" },
+      { "row": 2, "col": 10, "edge": "south" },
+      { "row": 1, "col": 2, "edge": "west" },
+      { "row": 1, "col": 2, "edge": "east" },
+      { "row": 1, "col": 2, "edge": "south" },
+      { "row": 1, "col": 4, "edge": "west" },
+      { "row": 1, "col": 4, "edge": "east" },
+      { "row": 1, "col": 4, "edge": "south" },
+      { "row": 1, "col": 6, "edge": "west" },
+      { "row": 1, "col": 6, "edge": "east" },
+      { "row": 1, "col": 6, "edge": "south" },
+      { "row": 1, "col": 8, "edge": "west" },
+      { "row": 1, "col": 8, "edge": "east" },
+      { "row": 1, "col": 8, "edge": "south" }
+    ]
+  },
+  "goalWorld": {
+    "rows": 3,
+    "cols": 10,
+    "karel": {
+      "row": 2,
+      "col": 9,
+      "direction": "east",
+      "beeperBag": 0
+    },
+    "beepers": [
+      {
+        "row": 1,
+        "col": 2,
+        "count": 1
+      },
+      {
+        "row": 1,
+        "col": 4,
+        "count": 1
+      },
+      {
+        "row": 1,
+        "col": 6,
+        "count": 1
+      },
+      {
+        "row": 1,
+        "col": 8,
+        "count": 1
+      }
+    ],
+    "walls": [
+      { "row": 2, "col": 1, "edge": "north" },
+      { "row": 2, "col": 1, "edge": "south" },
+      { "row": 2, "col": 2, "edge": "north" },
+      { "row": 2, "col": 3, "edge": "north" },
+      { "row": 2, "col": 3, "edge": "south" },
+      { "row": 2, "col": 4, "edge": "north" },
+      { "row": 2, "col": 5, "edge": "north" },
+      { "row": 2, "col": 5, "edge": "south" },
+      { "row": 2, "col": 6, "edge": "north" },
+      { "row": 2, "col": 7, "edge": "north" },
+      { "row": 2, "col": 7, "edge": "south" },
+      { "row": 2, "col": 8, "edge": "north" },
+      { "row": 2, "col": 9, "edge": "north" },
+      { "row": 2, "col": 9, "edge": "south" },
+      { "row": 2, "col": 10, "edge": "north" },
+      { "row": 2, "col": 10, "edge": "south" },
+      { "row": 1, "col": 2, "edge": "west" },
+      { "row": 1, "col": 2, "edge": "east" },
+      { "row": 1, "col": 2, "edge": "south" },
+      { "row": 1, "col": 4, "edge": "west" },
+      { "row": 1, "col": 4, "edge": "east" },
+      { "row": 1, "col": 4, "edge": "south" },
+      { "row": 1, "col": 6, "edge": "west" },
+      { "row": 1, "col": 6, "edge": "east" },
+      { "row": 1, "col": 6, "edge": "south" },
+      { "row": 1, "col": 8, "edge": "west" },
+      { "row": 1, "col": 8, "edge": "east" },
+      { "row": 1, "col": 8, "edge": "south" }
+    ]
+  },
+  "hints": [
+    {
+      "body": "Eine Wiederholung kann hier ein ganzes Teilproblem lösen: zum Loch gehen, Loch füllen, weitergehen."
+    },
+    {
+      "body": "Die Funktion fill_pothole() kann genauso aussehen wie in Kapitel 4."
+    }
+  ],
+  "tests": [
+    {
+      "name": "Straße mit vier Schlaglöchern",
+      "isHidden": false,
+      "orderIndex": 1,
+      "initialWorld": {
+        "rows": 3,
+        "cols": 10,
+        "karel": {
+          "row": 2,
+          "col": 1,
+          "direction": "east",
+          "beeperBag": 4
+        },
+        "beepers": [],
+        "walls": [
+          { "row": 2, "col": 1, "edge": "north" },
+          { "row": 2, "col": 1, "edge": "south" },
+          { "row": 2, "col": 2, "edge": "north" },
+          { "row": 2, "col": 3, "edge": "north" },
+          { "row": 2, "col": 3, "edge": "south" },
+          { "row": 2, "col": 4, "edge": "north" },
+          { "row": 2, "col": 5, "edge": "north" },
+          { "row": 2, "col": 5, "edge": "south" },
+          { "row": 2, "col": 6, "edge": "north" },
+          { "row": 2, "col": 7, "edge": "north" },
+          { "row": 2, "col": 7, "edge": "south" },
+          { "row": 2, "col": 8, "edge": "north" },
+          { "row": 2, "col": 9, "edge": "north" },
+          { "row": 2, "col": 9, "edge": "south" },
+          { "row": 2, "col": 10, "edge": "north" },
+          { "row": 2, "col": 10, "edge": "south" },
+          { "row": 1, "col": 2, "edge": "west" },
+          { "row": 1, "col": 2, "edge": "east" },
+          { "row": 1, "col": 2, "edge": "south" },
+          { "row": 1, "col": 4, "edge": "west" },
+          { "row": 1, "col": 4, "edge": "east" },
+          { "row": 1, "col": 4, "edge": "south" },
+          { "row": 1, "col": 6, "edge": "west" },
+          { "row": 1, "col": 6, "edge": "east" },
+          { "row": 1, "col": 6, "edge": "south" },
+          { "row": 1, "col": 8, "edge": "west" },
+          { "row": 1, "col": 8, "edge": "east" },
+          { "row": 1, "col": 8, "edge": "south" }
+        ]
+      },
+      "goalWorld": {
+        "rows": 3,
+        "cols": 10,
+        "karel": {
+          "row": 2,
+          "col": 9,
+          "direction": "east",
+          "beeperBag": 0
+        },
+        "beepers": [
+          {
+            "row": 1,
+            "col": 2,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 4,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 6,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 8,
+            "count": 1
+          }
+        ],
+        "walls": [
+          { "row": 2, "col": 1, "edge": "north" },
+          { "row": 2, "col": 1, "edge": "south" },
+          { "row": 2, "col": 2, "edge": "north" },
+          { "row": 2, "col": 3, "edge": "north" },
+          { "row": 2, "col": 3, "edge": "south" },
+          { "row": 2, "col": 4, "edge": "north" },
+          { "row": 2, "col": 5, "edge": "north" },
+          { "row": 2, "col": 5, "edge": "south" },
+          { "row": 2, "col": 6, "edge": "north" },
+          { "row": 2, "col": 7, "edge": "north" },
+          { "row": 2, "col": 7, "edge": "south" },
+          { "row": 2, "col": 8, "edge": "north" },
+          { "row": 2, "col": 9, "edge": "north" },
+          { "row": 2, "col": 9, "edge": "south" },
+          { "row": 2, "col": 10, "edge": "north" },
+          { "row": 2, "col": 10, "edge": "south" },
+          { "row": 1, "col": 2, "edge": "west" },
+          { "row": 1, "col": 2, "edge": "east" },
+          { "row": 1, "col": 2, "edge": "south" },
+          { "row": 1, "col": 4, "edge": "west" },
+          { "row": 1, "col": 4, "edge": "east" },
+          { "row": 1, "col": 4, "edge": "south" },
+          { "row": 1, "col": 6, "edge": "west" },
+          { "row": 1, "col": 6, "edge": "east" },
+          { "row": 1, "col": 6, "edge": "south" },
+          { "row": 1, "col": 8, "edge": "west" },
+          { "row": 1, "col": 8, "edge": "east" },
+          { "row": 1, "col": 8, "edge": "south" }
+        ]
+      }
+    }
+  ],
+  "isPublished": true
+}

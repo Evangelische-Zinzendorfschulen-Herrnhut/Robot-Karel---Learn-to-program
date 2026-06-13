@@ -1,0 +1,133 @@
+{
+  "slug": "collect-newspaper",
+  "title": "Die Zeitung holen",
+  "prompt": "Karel steht im Haus. Gehe zur Zeitung, sammle den Beeper ein und kehre zur Startposition zurück.",
+  "difficulty": "easy",
+  "orderIndex": 2,
+  "concepts": ["commands", "turning", "walls"],
+  "starterCode": "from karel import *\n\n\ndef main():\n    pass\n",
+  "initialWorld": {
+    "rows": 5,
+    "cols": 7,
+    "karel": {
+      "row": 4,
+      "col": 3,
+      "direction": "east",
+      "beeperBag": 0
+    },
+    "beepers": [
+      {
+        "row": 3,
+        "col": 6,
+        "count": 1
+      }
+    ],
+    "walls": [
+      { "row": 2, "col": 3, "edge": "west" },
+      { "row": 2, "col": 3, "edge": "south" },
+      { "row": 3, "col": 3, "edge": "west" },
+      { "row": 4, "col": 3, "edge": "west" },
+      { "row": 5, "col": 3, "edge": "south" },
+      { "row": 2, "col": 4, "edge": "south" },
+      { "row": 5, "col": 4, "edge": "south" },
+      { "row": 2, "col": 5, "edge": "south" },
+      { "row": 5, "col": 5, "edge": "south" },
+      { "row": 2, "col": 6, "edge": "west" },
+      { "row": 4, "col": 6, "edge": "west" }
+    ]
+  },
+  "goalWorld": {
+    "rows": 5,
+    "cols": 7,
+    "karel": {
+      "row": 4,
+      "col": 3,
+      "direction": "east",
+      "beeperBag": 1
+    },
+    "beepers": [],
+    "walls": [
+      { "row": 2, "col": 4, "edge": "south" },
+      { "row": 4, "col": 3, "edge": "west" },
+      { "row": 5, "col": 4, "edge": "south" },
+      { "row": 2, "col": 5, "edge": "south" },
+      { "row": 5, "col": 3, "edge": "south" },
+      { "row": 3, "col": 3, "edge": "west" },
+      { "row": 2, "col": 3, "edge": "south" },
+      { "row": 4, "col": 6, "edge": "west" },
+      { "row": 2, "col": 3, "edge": "west" },
+      { "row": 2, "col": 6, "edge": "west" },
+      { "row": 5, "col": 5, "edge": "south" }
+    ]
+  },
+  "hints": [
+    {
+      "body": "Überlege zuerst, wie Karel das Haus verlassen kann, ohne gegen Wände zu laufen."
+    },
+    {
+      "body": "Nach dem Einsammeln der Zeitung muss Karel zum ursprünglichen Feld zurückkehren."
+    }
+  ],
+  "tests": [
+    {
+      "name": "Originalwelt",
+      "isHidden": false,
+      "orderIndex": 1,
+      "initialWorld": {
+        "rows": 5,
+        "cols": 7,
+        "karel": {
+          "row": 4,
+          "col": 3,
+          "direction": "east",
+          "beeperBag": 0
+        },
+        "beepers": [
+          {
+            "row": 3,
+            "col": 6,
+            "count": 1
+          }
+        ],
+        "walls": [
+          { "row": 2, "col": 3, "edge": "west" },
+          { "row": 2, "col": 3, "edge": "south" },
+          { "row": 3, "col": 3, "edge": "west" },
+          { "row": 4, "col": 3, "edge": "west" },
+          { "row": 5, "col": 3, "edge": "south" },
+          { "row": 2, "col": 4, "edge": "south" },
+          { "row": 5, "col": 4, "edge": "south" },
+          { "row": 2, "col": 5, "edge": "south" },
+          { "row": 5, "col": 5, "edge": "south" },
+          { "row": 2, "col": 6, "edge": "west" },
+          { "row": 4, "col": 6, "edge": "west" }
+        ]
+      },
+      "goalWorld": {
+        "rows": 5,
+        "cols": 7,
+        "karel": {
+          "row": 4,
+          "col": 3,
+          "direction": "east",
+          "beeperBag": 1
+        },
+        "beepers": [],
+        "walls": [
+          { "row": 2, "col": 4, "edge": "south" },
+          { "row": 4, "col": 3, "edge": "west" },
+          { "row": 5, "col": 4, "edge": "south" },
+          { "row": 2, "col": 5, "edge": "south" },
+          { "row": 5, "col": 3, "edge": "south" },
+          { "row": 3, "col": 3, "edge": "west" },
+          { "row": 2, "col": 3, "edge": "south" },
+          { "row": 4, "col": 6, "edge": "west" },
+          { "row": 2, "col": 3, "edge": "west" },
+          { "row": 2, "col": 6, "edge": "west" },
+          { "row": 5, "col": 5, "edge": "south" }
+        ]
+      }
+    }
+  ],
+  "isPublished": true
+}

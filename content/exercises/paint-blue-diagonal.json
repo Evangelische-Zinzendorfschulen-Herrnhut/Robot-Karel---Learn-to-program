@@ -1,0 +1,87 @@
+{
+  "slug": "paint-blue-diagonal",
+  "title": "Blaue Diagonale malen",
+  "prompt": "Karel soll in einer 4x4-Welt die Diagonale von links unten nach rechts oben blau bemalen. Nutze dafür paint_field(\"blue\").",
+  "difficulty": "easy",
+  "orderIndex": 1,
+  "concepts": ["painting", "for-loops", "functions"],
+  "starterCode": "from karel import *\n\n\ndef main():\n    # Male eine blaue Diagonale.\n    pass\n\n\ndef step_diagonal():\n    pass\n\n\ndef turn_right():\n    turn_left()\n    turn_left()\n    turn_left()\n",
+  "initialWorld": {
+    "rows": 4,
+    "cols": 4,
+    "karel": {
+      "row": 1,
+      "col": 1,
+      "direction": "east",
+      "beeperBag": 0
+    },
+    "beepers": [],
+    "walls": [],
+    "paintedCorners": []
+  },
+  "goalWorld": {
+    "rows": 4,
+    "cols": 4,
+    "karel": {
+      "row": 4,
+      "col": 4,
+      "direction": "east",
+      "beeperBag": 0
+    },
+    "beepers": [],
+    "walls": [],
+    "paintedCorners": [
+      { "row": 1, "col": 1, "color": "blue" },
+      { "row": 2, "col": 2, "color": "blue" },
+      { "row": 3, "col": 3, "color": "blue" },
+      { "row": 4, "col": 4, "color": "blue" }
+    ]
+  },
+  "hints": [
+    {
+      "body": "paint_field(\"blue\") bemalt das Feld, auf dem Karel gerade steht."
+    },
+    {
+      "body": "Nach dem Bemalen eines Feldes kann Karel einen Schritt nach Osten und einen Schritt nach Norden gehen."
+    }
+  ],
+  "tests": [
+    {
+      "name": "4x4-Diagonale",
+      "isHidden": false,
+      "orderIndex": 1,
+      "initialWorld": {
+        "rows": 4,
+        "cols": 4,
+        "karel": {
+          "row": 1,
+          "col": 1,
+          "direction": "east",
+          "beeperBag": 0
+        },
+        "beepers": [],
+        "walls": [],
+        "paintedCorners": []
+      },
+      "goalWorld": {
+        "rows": 4,
+        "cols": 4,
+        "karel": {
+          "row": 4,
+          "col": 4,
+          "direction": "east",
+          "beeperBag": 0
+        },
+        "beepers": [],
+        "walls": [],
+        "paintedCorners": [
+          { "row": 1, "col": 1, "color": "blue" },
+          { "row": 2, "col": 2, "color": "blue" },
+          { "row": 3, "col": 3, "color": "blue" },
+          { "row": 4, "col": 4, "color": "blue" }
+        ]
+      }
+    }
+  ],
+  "isPublished": true
+}

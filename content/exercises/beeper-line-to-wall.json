@@ -1,0 +1,145 @@
+{
+  "slug": "beeper-line-to-wall",
+  "title": "Beeper bis zur Wand",
+  "prompt": "Karel soll auf jedem Feld der Straße einen Beeper ablegen und erst anhalten, wenn direkt vor ihm eine Wand ist. Vergiss das letzte Feld nicht.",
+  "difficulty": "medium",
+  "orderIndex": 1,
+  "concepts": ["while-loops", "conditions", "fencepost"],
+  "starterCode": "from karel import *\n\n\ndef main():\n    while front_is_clear():\n        put_beeper()\n        move()\n    put_beeper()\n",
+  "initialWorld": {
+    "rows": 1,
+    "cols": 7,
+    "karel": {
+      "row": 1,
+      "col": 1,
+      "direction": "east",
+      "beeperBag": 7
+    },
+    "beepers": [],
+    "walls": []
+  },
+  "goalWorld": {
+    "rows": 1,
+    "cols": 7,
+    "karel": {
+      "row": 1,
+      "col": 7,
+      "direction": "east",
+      "beeperBag": 0
+    },
+    "beepers": [
+      {
+        "row": 1,
+        "col": 1,
+        "count": 1
+      },
+      {
+        "row": 1,
+        "col": 2,
+        "count": 1
+      },
+      {
+        "row": 1,
+        "col": 3,
+        "count": 1
+      },
+      {
+        "row": 1,
+        "col": 4,
+        "count": 1
+      },
+      {
+        "row": 1,
+        "col": 5,
+        "count": 1
+      },
+      {
+        "row": 1,
+        "col": 6,
+        "count": 1
+      },
+      {
+        "row": 1,
+        "col": 7,
+        "count": 1
+      }
+    ],
+    "walls": []
+  },
+  "hints": [
+    {
+      "body": "front_is_clear() ist wahr, solange Karel einen Schritt nach vorne gehen kann."
+    },
+    {
+      "body": "Wenn du in der Schleife put_beeper() und move() ausführst, brauchst du nach der Schleife noch einen letzten put_beeper()."
+    }
+  ],
+  "tests": [
+    {
+      "name": "Sieben Felder",
+      "isHidden": false,
+      "orderIndex": 1,
+      "initialWorld": {
+        "rows": 1,
+        "cols": 7,
+        "karel": {
+          "row": 1,
+          "col": 1,
+          "direction": "east",
+          "beeperBag": 7
+        },
+        "beepers": [],
+        "walls": []
+      },
+      "goalWorld": {
+        "rows": 1,
+        "cols": 7,
+        "karel": {
+          "row": 1,
+          "col": 7,
+          "direction": "east",
+          "beeperBag": 0
+        },
+        "beepers": [
+          {
+            "row": 1,
+            "col": 1,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 2,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 3,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 4,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 5,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 6,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 7,
+            "count": 1
+          }
+        ],
+        "walls": []
+      }
+    }
+  ],
+  "isPublished": true
+}

@@ -1,0 +1,129 @@
+{
+  "slug": "fill-pothole",
+  "title": "Schlagloch füllen",
+  "prompt": "Karel steht links neben einem Schlagloch in der Straße. Lege einen Beeper in das Loch und gehe danach zum nächsten Feld weiter. Strukturiere dein Programm mit einer Funktion fill_pothole().",
+  "difficulty": "easy",
+  "orderIndex": 1,
+  "concepts": ["decomposition", "functions", "code-blocks"],
+  "starterCode": "from karel import *\n\n\ndef main():\n    move()\n    fill_pothole()\n    move()\n\n\ndef fill_pothole():\n    pass\n\n\ndef turn_right():\n    turn_left()\n    turn_left()\n    turn_left()\n\n\ndef turn_around():\n    turn_left()\n    turn_left()\n",
+  "initialWorld": {
+    "rows": 3,
+    "cols": 4,
+    "karel": {
+      "row": 2,
+      "col": 1,
+      "direction": "east",
+      "beeperBag": 1
+    },
+    "beepers": [],
+    "walls": [
+      { "row": 2, "col": 1, "edge": "north" },
+      { "row": 2, "col": 1, "edge": "south" },
+      { "row": 2, "col": 2, "edge": "north" },
+      { "row": 2, "col": 3, "edge": "north" },
+      { "row": 2, "col": 3, "edge": "south" },
+      { "row": 2, "col": 4, "edge": "north" },
+      { "row": 2, "col": 4, "edge": "south" },
+      { "row": 1, "col": 2, "edge": "west" },
+      { "row": 1, "col": 2, "edge": "east" },
+      { "row": 1, "col": 2, "edge": "south" }
+    ]
+  },
+  "goalWorld": {
+    "rows": 3,
+    "cols": 4,
+    "karel": {
+      "row": 2,
+      "col": 3,
+      "direction": "east",
+      "beeperBag": 0
+    },
+    "beepers": [
+      {
+        "row": 1,
+        "col": 2,
+        "count": 1
+      }
+    ],
+    "walls": [
+      { "row": 2, "col": 1, "edge": "north" },
+      { "row": 2, "col": 1, "edge": "south" },
+      { "row": 2, "col": 2, "edge": "north" },
+      { "row": 2, "col": 3, "edge": "north" },
+      { "row": 2, "col": 3, "edge": "south" },
+      { "row": 2, "col": 4, "edge": "north" },
+      { "row": 2, "col": 4, "edge": "south" },
+      { "row": 1, "col": 2, "edge": "west" },
+      { "row": 1, "col": 2, "edge": "east" },
+      { "row": 1, "col": 2, "edge": "south" }
+    ]
+  },
+  "hints": [
+    {
+      "body": "main() sollte den groben Plan zeigen: zum Loch gehen, das Loch füllen, weitergehen."
+    },
+    {
+      "body": "In fill_pothole() muss Karel nach unten gehen, einen Beeper ablegen, wieder nach oben kommen und nach Osten schauen."
+    }
+  ],
+  "tests": [
+    {
+      "name": "Straße mit einem Schlagloch",
+      "isHidden": false,
+      "orderIndex": 1,
+      "initialWorld": {
+        "rows": 3,
+        "cols": 4,
+        "karel": {
+          "row": 2,
+          "col": 1,
+          "direction": "east",
+          "beeperBag": 1
+        },
+        "beepers": [],
+        "walls": [
+          { "row": 2, "col": 1, "edge": "north" },
+          { "row": 2, "col": 1, "edge": "south" },
+          { "row": 2, "col": 2, "edge": "north" },
+          { "row": 2, "col": 3, "edge": "north" },
+          { "row": 2, "col": 3, "edge": "south" },
+          { "row": 2, "col": 4, "edge": "north" },
+          { "row": 2, "col": 4, "edge": "south" },
+          { "row": 1, "col": 2, "edge": "west" },
+          { "row": 1, "col": 2, "edge": "east" },
+          { "row": 1, "col": 2, "edge": "south" }
+        ]
+      },
+      "goalWorld": {
+        "rows": 3,
+        "cols": 4,
+        "karel": {
+          "row": 2,
+          "col": 3,
+          "direction": "east",
+          "beeperBag": 0
+        },
+        "beepers": [
+          {
+            "row": 1,
+            "col": 2,
+            "count": 1
+          }
+        ],
+        "walls": [
+          { "row": 2, "col": 1, "edge": "north" },
+          { "row": 2, "col": 1, "edge": "south" },
+          { "row": 2, "col": 2, "edge": "north" },
+          { "row": 2, "col": 3, "edge": "north" },
+          { "row": 2, "col": 3, "edge": "south" },
+          { "row": 2, "col": 4, "edge": "north" },
+          { "row": 2, "col": 4, "edge": "south" },
+          { "row": 1, "col": 2, "edge": "west" },
+          { "row": 1, "col": 2, "edge": "east" },
+          { "row": 1, "col": 2, "edge": "south" }
+        ]
+      }
+    }
+  ],
+  "isPublished": true
+}
