@@ -123,6 +123,32 @@ function TrySection({ exercises }: { exercises: ReturnType<typeof getChapterExer
   );
 }
 
+function NextChapterLink({
+  nextChapter,
+}: {
+  nextChapter: ReturnType<typeof getChapters>[number] | null;
+}) {
+  if (!nextChapter) {
+    return null;
+  }
+
+  return (
+    <nav
+      aria-label="Nächstes Kapitel"
+      className="mx-auto mt-12 flex w-full max-w-4xl justify-end border-t border-[#d8d0bd] pt-8"
+    >
+      <Link
+        className="inline-flex items-center gap-3 rounded-md bg-[#2f6b56] px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#255844] focus:outline-none focus:ring-2 focus:ring-[#2f6b56] focus:ring-offset-2 focus:ring-offset-[#f6f3ea]"
+        href={`/lernen/${nextChapter.slug}`}
+      >
+        <span>Weiter zu Kapitel {nextChapter.orderIndex}</span>
+        <span aria-hidden="true">→</span>
+        <span>{nextChapter.title}</span>
+      </Link>
+    </nav>
+  );
+}
+
 function ChapterOneContent({
   orderIndex,
   exercises,
@@ -1360,32 +1386,38 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
   }
 
   const exercises = getChapterExercises(chapter.slug);
+  const chapters = getChapters();
+  const chapterIndex = chapters.findIndex((item) => item.slug === chapter.slug);
+  const nextChapter = chapterIndex >= 0 ? (chapters[chapterIndex + 1] ?? null) : null;
 
   return (
     <ReaderShell activeSlug={chapter.slug}>
-      {chapter.slug === 'programmieren' ? (
-        <ChapterTwoContent exercises={exercises} orderIndex={chapter.orderIndex} />
-      ) : chapter.slug === 'neue-funktionen' ? (
-        <ChapterThreeContent exercises={exercises} orderIndex={chapter.orderIndex} />
-      ) : chapter.slug === 'zerlegung' ? (
-        <ChapterFourContent exercises={exercises} orderIndex={chapter.orderIndex} />
-      ) : chapter.slug === 'for-schleifen' ? (
-        <ChapterFiveContent exercises={exercises} orderIndex={chapter.orderIndex} />
-      ) : chapter.slug === 'while-schleifen' ? (
-        <ChapterSixContent exercises={exercises} orderIndex={chapter.orderIndex} />
-      ) : chapter.slug === 'bedingungen' ? (
-        <ChapterSevenContent exercises={exercises} orderIndex={chapter.orderIndex} />
-      ) : chapter.slug === 'verfeinerung' ? (
-        <ChapterEightContent exercises={exercises} orderIndex={chapter.orderIndex} />
-      ) : chapter.slug === 'extras' ? (
-        <ChapterNineContent exercises={exercises} orderIndex={chapter.orderIndex} />
-      ) : chapter.slug === 'referenz' ? (
-        <ChapterTenContent orderIndex={chapter.orderIndex} />
-      ) : chapter.slug === 'uebungen' ? (
-        <ChapterElevenContent exercises={exercises} orderIndex={chapter.orderIndex} />
-      ) : (
-        <ChapterOneContent exercises={exercises} orderIndex={chapter.orderIndex} />
-      )}
+      <div>
+        {chapter.slug === 'programmieren' ? (
+          <ChapterTwoContent exercises={exercises} orderIndex={chapter.orderIndex} />
+        ) : chapter.slug === 'neue-funktionen' ? (
+          <ChapterThreeContent exercises={exercises} orderIndex={chapter.orderIndex} />
+        ) : chapter.slug === 'zerlegung' ? (
+          <ChapterFourContent exercises={exercises} orderIndex={chapter.orderIndex} />
+        ) : chapter.slug === 'for-schleifen' ? (
+          <ChapterFiveContent exercises={exercises} orderIndex={chapter.orderIndex} />
+        ) : chapter.slug === 'while-schleifen' ? (
+          <ChapterSixContent exercises={exercises} orderIndex={chapter.orderIndex} />
+        ) : chapter.slug === 'bedingungen' ? (
+          <ChapterSevenContent exercises={exercises} orderIndex={chapter.orderIndex} />
+        ) : chapter.slug === 'verfeinerung' ? (
+          <ChapterEightContent exercises={exercises} orderIndex={chapter.orderIndex} />
+        ) : chapter.slug === 'extras' ? (
+          <ChapterNineContent exercises={exercises} orderIndex={chapter.orderIndex} />
+        ) : chapter.slug === 'referenz' ? (
+          <ChapterTenContent orderIndex={chapter.orderIndex} />
+        ) : chapter.slug === 'uebungen' ? (
+          <ChapterElevenContent exercises={exercises} orderIndex={chapter.orderIndex} />
+        ) : (
+          <ChapterOneContent exercises={exercises} orderIndex={chapter.orderIndex} />
+        )}
+        <NextChapterLink nextChapter={nextChapter} />
+      </div>
     </ReaderShell>
   );
 }
