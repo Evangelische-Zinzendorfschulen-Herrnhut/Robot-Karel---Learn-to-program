@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useId, useState } from 'react';
 
+import { AuthStatus } from '@/components/auth/auth-status';
 import { commandReferenceRows, conditionRows } from '@/lib/content/reference';
 
 const readerNavigation = [
@@ -217,6 +218,9 @@ export function ReaderShell({
               )}
             </div>
           </nav>
+          <div className="mt-5">
+            <AuthStatus nextPath={`/lernen/${activeSlug}`} />
+          </div>
         </aside>
 
         {children}

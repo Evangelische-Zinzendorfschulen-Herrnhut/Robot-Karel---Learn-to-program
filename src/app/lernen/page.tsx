@@ -4,14 +4,22 @@ import { getChapters, getCourse } from '@/lib/content/course';
 
 export default function CoursePage() {
   const course = getCourse();
-  const chapters = getChapters();
+  const chapters = getChapters().filter((chapter) => chapter.slug !== 'referenz');
 
   return (
     <main className="min-h-screen bg-[#f6f3ea] text-[#20231f]">
       <section className="mx-auto w-full max-w-5xl px-6 py-14">
-        <Link className="text-sm font-medium text-[#3d6f5a]" href="/">
-          Zur Startseite
-        </Link>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <Link className="text-sm font-medium text-[#3d6f5a]" href="/">
+            Zur Startseite
+          </Link>
+          <Link
+            className="border border-[#20231f] px-4 py-2 text-sm font-semibold text-[#20231f] transition-colors hover:bg-white"
+            href="/login?next=/lernen"
+          >
+            Einloggen
+          </Link>
+        </div>
         <div className="mt-10 max-w-3xl">
           <p className="text-sm font-semibold uppercase tracking-[0.12em] text-[#3d6f5a]">
             Kurs
