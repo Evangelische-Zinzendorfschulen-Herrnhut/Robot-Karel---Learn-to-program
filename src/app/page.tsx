@@ -14,18 +14,12 @@ export default function Home() {
           Eine spec-first Lernplattform mit Kapiteln, Login, gespeicherten
           Fortschritten und interaktiven Karel-Aufgaben im Browser.
         </p>
-        <div className="mt-8 flex flex-wrap gap-3">
+        <div className="mt-8">
           <Link
             className="inline-flex h-11 items-center border border-[#20231f] bg-[#20231f] px-5 text-sm font-semibold text-white transition-colors hover:bg-[#3d6f5a]"
             href="/lernen"
           >
             Kurs öffnen
-          </Link>
-          <Link
-            className="inline-flex h-11 items-center border border-[#20231f] px-5 text-sm font-semibold text-[#20231f] transition-colors hover:bg-white"
-            href="/login?next=/lernen"
-          >
-            Einloggen
           </Link>
         </div>
         <div className="mt-10 grid gap-4 sm:grid-cols-3">
@@ -38,7 +32,7 @@ export default function Home() {
           <div className="border border-[#d8d0bd] bg-white p-5">
             <h2 className="font-semibold">Python</h2>
             <p className="mt-2 text-sm leading-6 text-[#5f665e]">
-              Karel-Code läuft direkt im Browser mit unserem eigenen Karel-Runner.
+              Karel-Code läuft später sicher im Browser mit Pyodide.
             </p>
           </div>
           <div className="border border-[#d8d0bd] bg-white p-5">
