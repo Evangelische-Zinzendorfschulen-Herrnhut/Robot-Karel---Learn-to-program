@@ -28,6 +28,7 @@ export function KarelCommandPanel({ exercise }: KarelCommandPanelProps) {
     finalError: KarelRuntimeError | null;
   } | null>(null);
   const highlightLayerRef = useRef<HTMLPreElement>(null);
+  const lineNumberLayerRef = useRef<HTMLPreElement>(null);
   const solved = useMemo(() => worldMatchesGoal(world, exercise.goalWorld), [exercise.goalWorld, world]);
   const goalDescription = useMemo(() => describeGoalWorld(exercise.goalWorld), [exercise.goalWorld]);
   const codeLines = useMemo(() => code.split('\n'), [code]);
@@ -191,7 +192,27 @@ export function KarelCommandPanel({ exercise }: KarelCommandPanelProps) {
             <div className="relative mt-3 h-64 overflow-hidden border border-[#cfc6b4] bg-[#20231f] focus-within:border-[#3d6f5a]">
               <pre
                 aria-hidden="true"
-                className="pointer-events-none absolute inset-0 overflow-hidden p-4 font-mono text-sm leading-6 text-transparent"
+                className="pointer-events-none absolute inset-y-0 left-0 w-12 overflow-hidden border-r border-[#3a3d37] bg-[#1a1d19] py-4 pr-3 text-right font-mono text-sm leading-6 text-[#8f968d]"
+                ref={lineNumberLayerRef}
+              >
+                {codeLines.map((_, index) => {
+                  const lineNumber = index + 1;
+
+                  return (
+                    <span
+                      className={`block min-h-6 ${
+                        activeLine === lineNumber ? 'bg-[#3d6f5a]/45 text-[#f6f3ea]' : ''
+                      }`}
+                      key={lineNumber}
+                    >
+                      {lineNumber}
+                    </span>
+                  );
+                })}
+              </pre>
+              <pre
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 overflow-hidden whitespace-pre p-4 pl-16 font-mono text-sm leading-6 text-transparent"
                 ref={highlightLayerRef}
               >
                 {codeLines.map((line, index) => {
@@ -210,21 +231,24 @@ export function KarelCommandPanel({ exercise }: KarelCommandPanelProps) {
                 })}
               </pre>
               <textarea
-                className="relative h-full w-full resize-none bg-transparent p-4 font-mono text-sm leading-6 text-[#f6f3ea] outline-none"
+                className="relative h-full w-full resize-none overflow-auto bg-transparent p-4 pl-16 font-mono text-sm leading-6 text-[#f6f3ea] outline-none"
                 disabled={isReplaying}
                 id={`${exercise.slug}-code`}
                 onChange={(event) => updateCode(event.target.value)}
                 onKeyDown={handleCodeKeyDown}
                 onScroll={(event) => {
-                  if (!highlightLayerRef.current) {
-                    return;
+                  if (highlightLayerRef.current) {
+                    highlightLayerRef.current.scrollLeft = event.currentTarget.scrollLeft;
+                    highlightLayerRef.current.scrollTop = event.currentTarget.scrollTop;
                   }
 
-                  highlightLayerRef.current.scrollLeft = event.currentTarget.scrollLeft;
-                  highlightLayerRef.current.scrollTop = event.currentTarget.scrollTop;
+                  if (lineNumberLayerRef.current) {
+                    lineNumberLayerRef.current.scrollTop = event.currentTarget.scrollTop;
+                  }
                 }}
                 spellCheck={false}
                 value={code}
+                wrap="off"
               />
             </div>
             <p className="mt-2 text-xs leading-5 text-[#5f665e]">
