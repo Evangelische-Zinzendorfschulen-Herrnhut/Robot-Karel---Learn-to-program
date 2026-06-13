@@ -3,21 +3,9 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
 import { ExercisePreview } from '@/components/course/exercise-preview';
+import { ReaderShell } from '@/components/course/reader-shell';
 import { getChapter, getChapterExercises, getChapters } from '@/lib/content/course';
-
-const readerNavigation = [
-  { label: '1 - Karel kennenlernen', slug: 'karel-kennenlernen' },
-  { label: '2 - Programmieren', slug: 'programmieren' },
-  { label: '3 - Neue Funktionen', slug: 'neue-funktionen' },
-  { label: '4 - Zerlegung', slug: 'zerlegung' },
-  { label: '5 - For-Schleifen', slug: 'for-schleifen' },
-  { label: '6 - While-Schleifen', slug: 'while-schleifen' },
-  { label: '7 - Bedingungen', slug: 'bedingungen' },
-  { label: '8 - Verfeinerung', slug: 'verfeinerung' },
-  { label: '9 - Extras', slug: 'extras' },
-  { label: '10 - Referenz', slug: 'referenz' },
-  { label: '11 - Übungen', slug: 'uebungen' },
-];
+import { commandReferenceRows, conditionRows } from '@/lib/content/reference';
 
 const commandDescriptions = [
   {
@@ -51,52 +39,6 @@ export function generateStaticParams() {
   return getChapters().map((chapter) => ({
     chapterSlug: chapter.slug,
   }));
-}
-
-function ReaderShell({
-  activeSlug,
-  children,
-}: {
-  activeSlug: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <main className="min-h-screen bg-[#f6f3ea] text-[#20231f]">
-      <section className="mx-auto grid w-full max-w-7xl gap-8 px-5 py-8 lg:grid-cols-[230px_minmax(0,1fr)] lg:px-8">
-        <aside className="border-b border-[#d8d0bd] pb-6 lg:sticky lg:top-6 lg:h-fit lg:border-b-0 lg:border-r lg:pr-6">
-          <Link className="block text-xl font-bold text-[#20231f]" href="/lernen">
-            Karel
-          </Link>
-          <nav aria-label="Kapitel" className="mt-6 space-y-1 text-sm">
-            {readerNavigation.map((item) => {
-              const isActive = item.slug === activeSlug;
-              const className = `block border-l-2 px-3 py-2 ${
-                isActive
-                  ? 'border-[#3d6f5a] bg-white font-semibold text-[#20231f]'
-                  : 'border-transparent text-[#5f665e]'
-              }`;
-
-              if (!item.slug) {
-                return (
-                  <span className={className} key={item.label}>
-                    {item.label}
-                  </span>
-                );
-              }
-
-              return (
-                <Link className={className} href={`/lernen/${item.slug}`} key={item.label}>
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
-        </aside>
-
-        {children}
-      </section>
-    </main>
-  );
 }
 
 function ChapterHeader({ orderIndex, title }: { orderIndex: number; title: string }) {
@@ -877,28 +819,6 @@ function ChapterSixContent({
   );
 }
 
-const conditionRows = [
-  ['front_is_clear()', 'front_is_blocked()', 'Ist vor Karel der Weg frei?'],
-  ['beepers_present()', 'no_beepers_present()', 'Liegt auf Karels Feld ein Beeper?'],
-  ['left_is_clear()', 'left_is_blocked()', 'Ist links von Karel der Weg frei?'],
-  ['right_is_clear()', 'right_is_blocked()', 'Ist rechts von Karel der Weg frei?'],
-  ['beepers_in_bag()', 'no_beepers_in_bag()', 'Hat Karel Beeper in der Tasche?'],
-  ['facing_north()', 'not_facing_north()', 'Schaut Karel nach Norden?'],
-  ['facing_south()', 'not_facing_south()', 'Schaut Karel nach Süden?'],
-  ['facing_east()', 'not_facing_east()', 'Schaut Karel nach Osten?'],
-  ['facing_west()', 'not_facing_west()', 'Schaut Karel nach Westen?'],
-];
-
-const commandReferenceRows = [
-  ['move()', 'Karel geht ein Feld nach vorne.'],
-  ['turn_left()', 'Karel dreht sich um 90 Grad nach links.'],
-  ['turn_right()', 'Karel dreht sich um 90 Grad nach rechts.'],
-  ['turn_around()', 'Karel dreht sich um 180 Grad.'],
-  ['pick_beeper()', 'Karel hebt einen Beeper auf dem aktuellen Feld auf.'],
-  ['put_beeper()', 'Karel legt einen Beeper auf dem aktuellen Feld ab.'],
-  ['paint_field("blue")', 'Karel bemalt das aktuelle Feld mit der angegebenen Farbe.'],
-];
-
 function ReferenceTable({
   rows,
   headings,
@@ -1240,10 +1160,15 @@ function ChapterNineContent({
   );
 }
 
-function ChapterTenContent({ orderIndex }: { orderIndex: number }) {
+function ChapterTenContent() {
   return (
     <article className="mx-auto w-full max-w-4xl" id="kapitel">
-      <ChapterHeader orderIndex={orderIndex} title="Kapitel 10: Karel-Referenz" />
+      <div className="border-b border-[#d8d0bd] pb-8">
+        <p className="text-sm font-semibold uppercase tracking-[0.12em] text-[#3d6f5a]">
+          Nachschlagen
+        </p>
+        <h1 className="mt-3 text-4xl font-bold leading-tight md:text-5xl">Karel-Referenz</h1>
+      </div>
 
       <section className="prose-none mt-8 space-y-5 text-lg leading-8 text-[#384037]">
         <p>
@@ -1326,7 +1251,7 @@ function ChapterElevenContent({
 }) {
   return (
     <article className="mx-auto w-full max-w-4xl" id="kapitel">
-      <ChapterHeader orderIndex={orderIndex} title="Kapitel 11: Weitere Übungen" />
+      <ChapterHeader orderIndex={orderIndex} title="Kapitel 10: Weitere Übungen" />
 
       <section className="prose-none mt-8 space-y-5 text-lg leading-8 text-[#384037]">
         <p>
@@ -1386,7 +1311,7 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
   }
 
   const exercises = getChapterExercises(chapter.slug);
-  const chapters = getChapters();
+  const chapters = getChapters().filter((item) => item.slug !== 'referenz');
   const chapterIndex = chapters.findIndex((item) => item.slug === chapter.slug);
   const nextChapter = chapterIndex >= 0 ? (chapters[chapterIndex + 1] ?? null) : null;
 
@@ -1410,7 +1335,7 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
         ) : chapter.slug === 'extras' ? (
           <ChapterNineContent exercises={exercises} orderIndex={chapter.orderIndex} />
         ) : chapter.slug === 'referenz' ? (
-          <ChapterTenContent orderIndex={chapter.orderIndex} />
+          <ChapterTenContent />
         ) : chapter.slug === 'uebungen' ? (
           <ChapterElevenContent exercises={exercises} orderIndex={chapter.orderIndex} />
         ) : (

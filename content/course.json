@@ -77,20 +77,20 @@
       "exerciseSlugs": ["paint-blue-diagonal"]
     },
     {
-      "slug": "referenz",
-      "title": "Referenz",
-      "summary": "Alle bisher unterstützten Karel-Befehle, Bedingungen und Kontrollstrukturen auf einer Seite.",
-      "orderIndex": 10,
-      "mdxPath": "content/chapters/referenz.mdx",
-      "exerciseSlugs": []
-    },
-    {
       "slug": "uebungen",
       "title": "Weitere Übungen",
       "summary": "Zusätzliche Karel-Aufgaben, inspiriert von FredOverflows Karel-Implementation.",
-      "orderIndex": 11,
+      "orderIndex": 10,
       "mdxPath": "content/chapters/uebungen.mdx",
       "exerciseSlugs": ["hang-lampions", "clean-tunnels", "jump-hurdles"]
+    },
+    {
+      "slug": "referenz",
+      "title": "Referenz",
+      "summary": "Alle bisher unterstützten Karel-Befehle, Bedingungen und Kontrollstrukturen auf einer Seite.",
+      "orderIndex": 11,
+      "mdxPath": "content/chapters/referenz.mdx",
+      "exerciseSlugs": []
     }
   ]
 }
