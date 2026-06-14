@@ -1,0 +1,148 @@
+{
+  "slug": "mark-every-second-field-with-variable",
+  "title": "Jedes zweite Feld markieren",
+  "prompt": "Karel soll nach Osten bis zur Wand laufen und dabei jedes zweite besuchte Feld mit einem Beeper markieren: Feld 2, Feld 4, Feld 6 und so weiter. Verwende eine Variable als Zähler.",
+  "difficulty": "challenge",
+  "orderIndex": 2,
+  "concepts": ["variables", "while-loops", "conditions"],
+  "starterCode": "from karel import *\n\n\ndef main():\n    steps = 0\n\n    while front_is_clear():\n        move()\n        steps = steps + 1\n\n        # Wenn steps gerade 2 erreicht, markiere das Feld.\n        # Danach kannst du steps wieder auf 0 setzen.\n",
+  "initialWorld": {
+    "rows": 1,
+    "cols": 7,
+    "karel": {
+      "row": 1,
+      "col": 1,
+      "direction": "east",
+      "beeperBag": 3
+    },
+    "beepers": [],
+    "walls": []
+  },
+  "goalWorld": {
+    "rows": 1,
+    "cols": 7,
+    "karel": {
+      "row": 1,
+      "col": 7,
+      "direction": "east",
+      "beeperBag": 0
+    },
+    "beepers": [
+      {
+        "row": 1,
+        "col": 3,
+        "count": 1
+      },
+      {
+        "row": 1,
+        "col": 5,
+        "count": 1
+      },
+      {
+        "row": 1,
+        "col": 7,
+        "count": 1
+      }
+    ],
+    "walls": []
+  },
+  "hints": [
+    {
+      "body": "Erhöhe steps nach jedem move() um 1."
+    },
+    {
+      "body": "Wenn steps == 2 ist, soll Karel einen Beeper ablegen."
+    },
+    {
+      "body": "Setze steps nach dem Markieren wieder auf 0, damit der nächste Zweierschritt gezählt wird."
+    }
+  ],
+  "tests": [
+    {
+      "name": "Sieben Felder",
+      "isHidden": false,
+      "orderIndex": 1,
+      "initialWorld": {
+        "rows": 1,
+        "cols": 7,
+        "karel": {
+          "row": 1,
+          "col": 1,
+          "direction": "east",
+          "beeperBag": 3
+        },
+        "beepers": [],
+        "walls": []
+      },
+      "goalWorld": {
+        "rows": 1,
+        "cols": 7,
+        "karel": {
+          "row": 1,
+          "col": 7,
+          "direction": "east",
+          "beeperBag": 0
+        },
+        "beepers": [
+          {
+            "row": 1,
+            "col": 3,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 5,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 7,
+            "count": 1
+          }
+        ],
+        "walls": []
+      }
+    },
+    {
+      "name": "Fünf Felder",
+      "isHidden": false,
+      "orderIndex": 2,
+      "initialWorld": {
+        "rows": 1,
+        "cols": 5,
+        "karel": {
+          "row": 1,
+          "col": 1,
+          "direction": "east",
+          "beeperBag": 2
+        },
+        "beepers": [],
+        "walls": []
+      },
+      "goalWorld": {
+        "rows": 1,
+        "cols": 5,
+        "karel": {
+          "row": 1,
+          "col": 5,
+          "direction": "east",
+          "beeperBag": 0
+        },
+        "beepers": [
+          {
+            "row": 1,
+            "col": 3,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 5,
+            "count": 1
+          }
+        ],
+        "walls": []
+      }
+    }
+  ],
+  "isPublished": true
+}

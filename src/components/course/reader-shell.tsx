@@ -16,6 +16,9 @@ const readerNavigation = [
   { label: '8 - Verfeinerung', slug: 'verfeinerung' },
   { label: '9 - Extras', slug: 'extras' },
   { label: '10 - Übungen', slug: 'uebungen' },
+  { label: '11 - Variablen', slug: 'variablen' },
+  { label: '12 - String-Variablen', slug: 'string-variablen' },
+  { label: '13 - Python-Typen', slug: 'python-typen' },
 ];
 
 function ReferenceTable({ rows, headings }: { rows: string[][]; headings: string[] }) {
@@ -168,25 +171,34 @@ while bedingung():
 
 export function ReaderShell({
   activeSlug,
+  authSlot,
   children,
+  completedChapterSlugs = [],
 }: {
   activeSlug: string;
+  authSlot?: React.ReactNode;
   children: React.ReactNode;
+  completedChapterSlugs?: string[];
 }) {
   const [isReferenceOpen, setIsReferenceOpen] = useState(false);
   const referenceTitleId = useId();
+  const completedChapters = new Set(completedChapterSlugs);
 
   return (
     <main className="min-h-screen bg-[#f6f3ea] text-[#20231f]">
       <section className="mx-auto grid w-full max-w-7xl gap-8 px-5 py-8 lg:grid-cols-[230px_minmax(0,1fr)] lg:px-8">
         <aside className="border-b border-[#d8d0bd] pb-6 lg:sticky lg:top-6 lg:h-fit lg:border-b-0 lg:border-r lg:pr-6">
-          <Link className="block text-xl font-bold text-[#20231f]" href="/lernen">
-            Karel
-          </Link>
+          <div className="flex items-center justify-between gap-4 lg:block">
+            <Link className="block text-xl font-bold text-[#20231f]" href="/lernen">
+              Karel
+            </Link>
+            {authSlot ? <div className="lg:mt-4">{authSlot}</div> : null}
+          </div>
           <nav aria-label="Kapitel" className="mt-6 space-y-1 text-sm">
             {readerNavigation.map((item) => {
               const isActive = item.slug === activeSlug;
-              const className = `block w-full border-l-2 px-3 py-2 text-left ${
+              const isComplete = completedChapters.has(item.slug);
+              const className = `flex w-full items-center justify-between gap-2 border-l-2 px-3 py-2 text-left ${
                 isActive
                   ? 'border-[#3d6f5a] bg-white font-semibold text-[#20231f]'
                   : 'border-transparent text-[#5f665e]'
@@ -194,7 +206,12 @@ export function ReaderShell({
 
               return (
                 <Link className={className} href={`/lernen/${item.slug}`} key={item.label}>
-                  {item.label}
+                  <span>{item.label}</span>
+                  {isComplete ? (
+                    <span aria-label="Kapitel vollständig" className="font-semibold text-[#2d6b3f]">
+                      ✓
+                    </span>
+                  ) : null}
                 </Link>
               );
             })}

@@ -85,10 +85,34 @@
       "exerciseSlugs": ["hang-lampions", "clean-tunnels", "jump-hurdles"]
     },
     {
+      "slug": "variablen",
+      "title": "Variablen",
+      "summary": "Werte mit Namen speichern, verändern und später in Schleifen oder Bedingungen wiederverwenden.",
+      "orderIndex": 11,
+      "mdxPath": "content/chapters/variablen.mdx",
+      "exerciseSlugs": ["mark-return-path-with-variable", "mark-every-second-field-with-variable"]
+    },
+    {
+      "slug": "string-variablen",
+      "title": "String-Variablen",
+      "summary": "Texte wie Farbnamen speichern und als Argumente an Karel-Befehle übergeben.",
+      "orderIndex": 12,
+      "mdxPath": "content/chapters/string-variablen.mdx",
+      "exerciseSlugs": ["paint-line-with-color-variable", "paint-two-color-sections"]
+    },
+    {
+      "slug": "python-typen",
+      "title": "Variablentypen in Python",
+      "summary": "Die wichtigsten Python-Typen kennenlernen: Zahlen, Strings, Wahrheitswerte, Listen, Tupel, Dictionaries, Sets und None.",
+      "orderIndex": 13,
+      "mdxPath": "content/chapters/python-typen.mdx",
+      "exerciseSlugs": []
+    },
+    {
       "slug": "referenz",
       "title": "Referenz",
       "summary": "Alle bisher unterstützten Karel-Befehle, Bedingungen und Kontrollstrukturen auf einer Seite.",
-      "orderIndex": 11,
+      "orderIndex": 14,
       "mdxPath": "content/chapters/referenz.mdx",
       "exerciseSlugs": []
     }

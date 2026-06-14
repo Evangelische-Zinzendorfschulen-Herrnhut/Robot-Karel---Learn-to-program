@@ -1,11 +1,14 @@
 import type { Exercise } from '@/domain/course';
 import { KarelCommandPanel } from '@/components/karel/karel-command-panel';
+import { getExerciseCodeSnapshot } from '@/lib/course/progress';
 
 type ExercisePreviewProps = {
   exercise: Exercise;
 };
 
-export function ExercisePreview({ exercise }: ExercisePreviewProps) {
+export async function ExercisePreview({ exercise }: ExercisePreviewProps) {
+  const snapshot = await getExerciseCodeSnapshot(exercise.slug);
+
   return (
     <article className="border border-[#d8d0bd] bg-white p-5">
       <div className="flex items-start justify-between gap-4">
@@ -20,7 +23,11 @@ export function ExercisePreview({ exercise }: ExercisePreviewProps) {
         </span>
       </div>
       <p className="mt-4 leading-7 text-[#4d554c]">{exercise.prompt}</p>
-      <KarelCommandPanel exercise={exercise} />
+      <KarelCommandPanel
+        exercise={exercise}
+        initialCode={snapshot.latestCode ?? undefined}
+        initialStatus={snapshot.status ?? undefined}
+      />
     </article>
   );
 }

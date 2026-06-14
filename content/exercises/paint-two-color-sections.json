@@ -1,0 +1,140 @@
+{
+  "slug": "paint-two-color-sections",
+  "title": "Zwei Farbabschnitte",
+  "prompt": "Karel soll die ersten drei Felder blau und die letzten drei Felder gelb bemalen. Speichere beide Farbnamen in String-Variablen.",
+  "difficulty": "medium",
+  "orderIndex": 2,
+  "concepts": ["string-variables", "for-loops", "paint-field"],
+  "starterCode": "from karel import *\n\n\ndef main():\n    first_color = \"blue\"\n    second_color = \"yellow\"\n\n    # Male zuerst drei Felder mit first_color.\n\n    # Male danach drei Felder mit second_color.\n",
+  "initialWorld": {
+    "rows": 1,
+    "cols": 6,
+    "karel": {
+      "row": 1,
+      "col": 1,
+      "direction": "east",
+      "beeperBag": 0
+    },
+    "beepers": [],
+    "walls": []
+  },
+  "goalWorld": {
+    "rows": 1,
+    "cols": 6,
+    "karel": {
+      "row": 1,
+      "col": 6,
+      "direction": "east",
+      "beeperBag": 0
+    },
+    "beepers": [],
+    "walls": [],
+    "paintedCorners": [
+      {
+        "row": 1,
+        "col": 1,
+        "color": "blue"
+      },
+      {
+        "row": 1,
+        "col": 2,
+        "color": "blue"
+      },
+      {
+        "row": 1,
+        "col": 3,
+        "color": "blue"
+      },
+      {
+        "row": 1,
+        "col": 4,
+        "color": "yellow"
+      },
+      {
+        "row": 1,
+        "col": 5,
+        "color": "yellow"
+      },
+      {
+        "row": 1,
+        "col": 6,
+        "color": "yellow"
+      }
+    ]
+  },
+  "hints": [
+    {
+      "body": "Du kannst eine for-Schleife mit range(3) für den blauen Abschnitt verwenden."
+    },
+    {
+      "body": "Bewege Karel nach dem Bemalen nur dann weiter, wenn noch ein Feld vor ihm frei ist."
+    },
+    {
+      "body": "paint_field(first_color) und paint_field(second_color) lesen die gespeicherten Farbnamen."
+    }
+  ],
+  "tests": [
+    {
+      "name": "Sechs Felder",
+      "isHidden": false,
+      "orderIndex": 1,
+      "initialWorld": {
+        "rows": 1,
+        "cols": 6,
+        "karel": {
+          "row": 1,
+          "col": 1,
+          "direction": "east",
+          "beeperBag": 0
+        },
+        "beepers": [],
+        "walls": []
+      },
+      "goalWorld": {
+        "rows": 1,
+        "cols": 6,
+        "karel": {
+          "row": 1,
+          "col": 6,
+          "direction": "east",
+          "beeperBag": 0
+        },
+        "beepers": [],
+        "walls": [],
+        "paintedCorners": [
+          {
+            "row": 1,
+            "col": 1,
+            "color": "blue"
+          },
+          {
+            "row": 1,
+            "col": 2,
+            "color": "blue"
+          },
+          {
+            "row": 1,
+            "col": 3,
+            "color": "blue"
+          },
+          {
+            "row": 1,
+            "col": 4,
+            "color": "yellow"
+          },
+          {
+            "row": 1,
+            "col": 5,
+            "color": "yellow"
+          },
+          {
+            "row": 1,
+            "col": 6,
+            "color": "yellow"
+          }
+        ]
+      }
+    }
+  ],
+  "isPublished": true
+}

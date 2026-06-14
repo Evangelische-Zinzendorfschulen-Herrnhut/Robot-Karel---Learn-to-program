@@ -10,8 +10,12 @@ import firstStepExercise from '../../../content/exercises/first-step.json';
 import hangLampionsExercise from '../../../content/exercises/hang-lampions.json';
 import invertBeeperLineExercise from '../../../content/exercises/invert-beeper-line.json';
 import jumpHurdlesExercise from '../../../content/exercises/jump-hurdles.json';
+import markEverySecondFieldWithVariableExercise from '../../../content/exercises/mark-every-second-field-with-variable.json';
 import markFourCornersExercise from '../../../content/exercises/mark-four-corners.json';
+import markReturnPathWithVariableExercise from '../../../content/exercises/mark-return-path-with-variable.json';
 import paintBlueDiagonalExercise from '../../../content/exercises/paint-blue-diagonal.json';
+import paintLineWithColorVariableExercise from '../../../content/exercises/paint-line-with-color-variable.json';
+import paintTwoColorSectionsExercise from '../../../content/exercises/paint-two-color-sections.json';
 import placeBeeperOnLedgeExercise from '../../../content/exercises/place-beeper-on-ledge.json';
 import repairFourPotholesExercise from '../../../content/exercises/repair-four-potholes.json';
 
@@ -40,13 +44,17 @@ const exercisesBySlug = {
   'place-beeper-on-ledge': placeBeeperOnLedgeExercise as Exercise,
   'define-turn-right': defineTurnRightExercise as Exercise,
   'fill-pothole': fillPotholeExercise as Exercise,
+  'mark-every-second-field-with-variable': markEverySecondFieldWithVariableExercise as Exercise,
   'mark-four-corners': markFourCornersExercise as Exercise,
+  'mark-return-path-with-variable': markReturnPathWithVariableExercise as Exercise,
   'repair-four-potholes': repairFourPotholesExercise as Exercise,
   'beeper-line-to-wall': beeperLineToWallExercise as Exercise,
   'collect-opposite-corners': collectOppositeCornersExercise as Exercise,
   'invert-beeper-line': invertBeeperLineExercise as Exercise,
   'collect-beeper-towers': collectBeeperTowersExercise as Exercise,
   'paint-blue-diagonal': paintBlueDiagonalExercise as Exercise,
+  'paint-line-with-color-variable': paintLineWithColorVariableExercise as Exercise,
+  'paint-two-color-sections': paintTwoColorSectionsExercise as Exercise,
   'hang-lampions': hangLampionsExercise as Exercise,
   'clean-tunnels': cleanTunnelsExercise as Exercise,
   'jump-hurdles': jumpHurdlesExercise as Exercise,

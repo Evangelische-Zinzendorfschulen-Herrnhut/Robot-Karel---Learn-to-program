@@ -2,9 +2,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
+import { AuthStatus } from '@/components/auth/auth-status';
 import { ExercisePreview } from '@/components/course/exercise-preview';
 import { ReaderShell } from '@/components/course/reader-shell';
 import { getChapter, getChapterExercises, getChapters } from '@/lib/content/course';
+import { getChapterCompletion, getChapterCompletions } from '@/lib/course/progress';
 import { commandReferenceRows, conditionRows } from '@/lib/content/reference';
 
 const commandDescriptions = [
@@ -88,6 +90,34 @@ function NextChapterLink({
         <span>{nextChapter.title}</span>
       </Link>
     </nav>
+  );
+}
+
+function ChapterProgressBanner({
+  completedCount,
+  isComplete,
+  totalCount,
+}: {
+  completedCount: number;
+  isComplete: boolean;
+  totalCount: number;
+}) {
+  if (totalCount === 0) {
+    return null;
+  }
+
+  return (
+    <div
+      className={`mb-8 border px-5 py-4 ${
+        isComplete
+          ? 'border-[#9cc8a9] bg-[#eef7f1] text-[#24583a]'
+          : 'border-[#d8d0bd] bg-white text-[#4d554c]'
+      }`}
+    >
+      <p className="text-sm font-semibold">
+        {isComplete ? 'Kapitel vollständig' : `Kapitel-Fortschritt: ${completedCount}/${totalCount} Aufgaben gelöst`}
+      </p>
+    </div>
   );
 }
 
@@ -1223,6 +1253,31 @@ while bedingung():
       </section>
 
       <section className="mt-10">
+        <h2 className="text-2xl font-semibold">Variablen</h2>
+        <CodeSnippet>{`steps = 0
+steps = steps + 1
+color = "blue"
+
+if steps == 3:
+    put_beeper()
+
+for i in range(steps):
+    move()
+
+paint_field(color)`}</CodeSnippet>
+        <p className="mt-4 leading-8 text-[#4d554c]">
+          Der Runner unterstützt einfache Ganzzahl-Variablen, String-Variablen
+          für Farbnamen, Addition und Subtraktion sowie Vergleiche mit
+          <span className="font-mono"> ==</span>,
+          <span className="font-mono"> !=</span>,
+          <span className="font-mono"> &lt;</span>,
+          <span className="font-mono"> &lt;=</span>,
+          <span className="font-mono"> &gt;</span> und
+          <span className="font-mono"> &gt;=</span>.
+        </p>
+      </section>
+
+      <section className="mt-10">
         <h2 className="text-2xl font-semibold">Funktionen</h2>
         <CodeSnippet>{`def name():
     befehl()
@@ -1237,6 +1292,296 @@ while bedingung():
       <section className="mt-10">
         <h2 className="text-2xl font-semibold">Bedingungen</h2>
         <ReferenceTable headings={['Bedingung', 'Gegenteil', 'Bedeutung']} rows={conditionRows} />
+      </section>
+    </article>
+  );
+}
+
+function ChapterVariablesContent({
+  orderIndex,
+  exercises,
+}: {
+  orderIndex: number;
+  exercises: ReturnType<typeof getChapterExercises>;
+}) {
+  return (
+    <article className="mx-auto w-full max-w-4xl" id="kapitel">
+      <ChapterHeader orderIndex={orderIndex} title="Kapitel 11: Variablen" />
+
+      <section className="prose-none mt-8 space-y-5 text-lg leading-8 text-[#384037]">
+        <p>
+          Eine Variable ist ein Name für einen Wert. In Karel-Programmen ist das
+          besonders hilfreich, wenn du dir merken möchtest, wie oft etwas
+          passiert ist: Wie viele Schritte ist Karel gelaufen? Wie viele Beeper
+          wurden eingesammelt? Wie oft soll eine Schleife später laufen?
+        </p>
+        <p>
+          Variablen verändern nicht direkt Karels Welt. Sie liegen im Programm
+          und helfen dir, Entscheidungen und Wiederholungen genauer zu steuern.
+        </p>
+      </section>
+
+      <section className="mt-10 border-y border-[#d8d0bd] py-8">
+        <h2 className="text-2xl font-semibold">Werte speichern</h2>
+        <p className="mt-4 leading-8 text-[#4d554c]">
+          Mit einer Zuweisung gibst du einem Wert einen Namen. Links steht der
+          Name, rechts steht der Wert, der gespeichert wird.
+        </p>
+        <CodeSnippet>{`steps = 0`}</CodeSnippet>
+        <p className="mt-4 leading-8 text-[#4d554c]">
+          Wenn Karel später einen Schritt macht, kannst du den gespeicherten
+          Wert erhöhen:
+        </p>
+        <CodeSnippet>{`move()
+steps = steps + 1`}</CodeSnippet>
+        <p className="mt-4 leading-8 text-[#4d554c]">
+          Die rechte Seite wird zuerst ausgerechnet. Danach wird das Ergebnis
+          wieder unter demselben Namen gespeichert.
+        </p>
+      </section>
+
+      <section className="mt-10">
+        <h2 className="text-2xl font-semibold">Zählen in einer Schleife</h2>
+        <p className="mt-4 leading-8 text-[#4d554c]">
+          Eine Variable wird oft als Zähler benutzt. Dieses Programm merkt sich,
+          wie viele Felder Karel bis zur Wand läuft:
+        </p>
+        <CodeSnippet>{`def main():
+    steps = 0
+
+    while front_is_clear():
+        move()
+        steps = steps + 1`}</CodeSnippet>
+      </section>
+
+      <section className="mt-10">
+        <h2 className="text-2xl font-semibold">Variablen wiederverwenden</h2>
+        <p className="mt-4 leading-8 text-[#4d554c]">
+          Der gespeicherte Wert kann danach eine weitere Schleife steuern. So
+          kann Karel auf dem Rückweg genau so viele Felder bearbeiten, wie er
+          vorher gelaufen ist.
+        </p>
+        <CodeSnippet>{`turn_around()
+
+for i in range(steps):
+    put_beeper()
+    if front_is_clear():
+        move()`}</CodeSnippet>
+      </section>
+
+      <section className="mt-10">
+        <h2 className="text-2xl font-semibold">Vergleichen</h2>
+        <p className="mt-4 leading-8 text-[#4d554c]">
+          In Bedingungen vergleichst du Werte mit zwei Gleichheitszeichen. Ein
+          einzelnes <span className="font-mono">=</span> speichert, zwei
+          Gleichheitszeichen vergleichen.
+        </p>
+        <CodeSnippet>{`if steps == 3:
+    put_beeper()`}</CodeSnippet>
+      </section>
+
+      <TrySection exercises={exercises} />
+    </article>
+  );
+}
+
+function ChapterStringVariablesContent({
+  orderIndex,
+  exercises,
+}: {
+  orderIndex: number;
+  exercises: ReturnType<typeof getChapterExercises>;
+}) {
+  return (
+    <article className="mx-auto w-full max-w-4xl" id="kapitel">
+      <ChapterHeader orderIndex={orderIndex} title="Kapitel 12: String-Variablen" />
+
+      <section className="prose-none mt-8 space-y-5 text-lg leading-8 text-[#384037]">
+        <p>
+          Bisher haben Variablen Zahlen gespeichert. Variablen können aber auch
+          Text speichern. In Python heißen solche Textwerte Strings. Du erkennst
+          sie an den Anführungszeichen.
+        </p>
+        <p>
+          Für Karel sind String-Variablen besonders praktisch bei Farben: Du
+          speicherst einen Farbnamen einmal und verwendest ihn später beim
+          Bemalen vieler Felder.
+        </p>
+      </section>
+
+      <section className="mt-10 border-y border-[#d8d0bd] py-8">
+        <h2 className="text-2xl font-semibold">Text speichern</h2>
+        <p className="mt-4 leading-8 text-[#4d554c]">
+          Ein String ist Text in Anführungszeichen. Der Wert
+          <span className="font-mono"> &quot;blue&quot;</span> kann in einer Variable
+          gespeichert werden:
+        </p>
+        <CodeSnippet>{`color = "blue"`}</CodeSnippet>
+        <p className="mt-4 leading-8 text-[#4d554c]">
+          Danach kannst du den Namen der Variable dort verwenden, wo der
+          Farbname gebraucht wird:
+        </p>
+        <CodeSnippet>{`paint_field(color)`}</CodeSnippet>
+      </section>
+
+      <section className="mt-10">
+        <h2 className="text-2xl font-semibold">Warum ist das nützlich?</h2>
+        <p className="mt-4 leading-8 text-[#4d554c]">
+          Wenn du eine Farbe an vielen Stellen verwendest, steht sie nur einmal
+          oben im Programm. Ändert sich die Aufgabe, musst du nur eine Zeile
+          anpassen.
+        </p>
+        <CodeSnippet>{`def main():
+    color = "green"
+
+    while front_is_clear():
+        paint_field(color)
+        move()
+    paint_field(color)`}</CodeSnippet>
+      </section>
+
+      <section className="mt-10">
+        <h2 className="text-2xl font-semibold">Mehrere Textwerte</h2>
+        <p className="mt-4 leading-8 text-[#4d554c]">
+          Du kannst auch mehrere String-Variablen verwenden, zum Beispiel für
+          zwei Abschnitte einer Straße.
+        </p>
+        <CodeSnippet>{`first_color = "blue"
+second_color = "yellow"`}</CodeSnippet>
+      </section>
+
+      <TrySection exercises={exercises} />
+    </article>
+  );
+}
+
+const pythonTypeRows = [
+  ['int', 'Ganze Zahl', 'steps = 4'],
+  ['float', 'Kommazahl', 'temperature = 21.5'],
+  ['str', 'Text', 'color = "blue"'],
+  ['bool', 'Wahrheitswert', 'is_ready = True'],
+  ['list', 'Veränderbare Sammlung', 'colors = ["blue", "yellow"]'],
+  ['tuple', 'Feste Sammlung', 'start = (1, 1)'],
+  ['dict', 'Zuordnung von Schlüsseln zu Werten', 'robot = {"row": 1, "col": 3}'],
+  ['set', 'Menge ohne doppelte Werte', 'visited = {1, 2, 3}'],
+  ['NoneType', 'Kein Wert', 'result = None'],
+];
+
+function PythonTypesTable() {
+  return (
+    <div className="mt-5 overflow-hidden border border-[#d8d0bd] bg-white">
+      <table className="w-full border-collapse text-left text-sm">
+        <thead className="bg-[#faf8f1] text-[#20231f]">
+          <tr>
+            <th className="border-b border-[#d8d0bd] px-4 py-3">Typ</th>
+            <th className="border-b border-[#d8d0bd] px-4 py-3">Bedeutung</th>
+            <th className="border-b border-[#d8d0bd] px-4 py-3">Beispiel</th>
+          </tr>
+        </thead>
+        <tbody>
+          {pythonTypeRows.map(([type, meaning, example]) => (
+            <tr key={type}>
+              <td className="border-b border-[#eee7d8] px-4 py-3 align-top font-mono text-[#20231f]">
+                {type}
+              </td>
+              <td className="border-b border-[#eee7d8] px-4 py-3 leading-6 text-[#4d554c]">
+                {meaning}
+              </td>
+              <td className="border-b border-[#eee7d8] px-4 py-3 align-top font-mono text-[#20231f]">
+                {example}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function ChapterPythonTypesContent({ orderIndex }: { orderIndex: number }) {
+  return (
+    <article className="mx-auto w-full max-w-4xl" id="kapitel">
+      <ChapterHeader orderIndex={orderIndex} title="Kapitel 13: Variablentypen in Python" />
+
+      <section className="prose-none mt-8 space-y-5 text-lg leading-8 text-[#384037]">
+        <p>
+          In Python hat jeder Wert einen Typ. Der Typ beschreibt, welche Art von
+          Wert gespeichert ist und was du damit tun kannst. Mit Zahlen kannst du
+          rechnen, mit Strings kannst du Text speichern, mit Listen kannst du
+          mehrere Werte sammeln.
+        </p>
+        <p>
+          Du musst den Typ beim Erstellen einer Variable nicht dazuschreiben.
+          Python erkennt ihn aus dem Wert auf der rechten Seite der Zuweisung.
+        </p>
+      </section>
+
+      <section className="mt-10 border-y border-[#d8d0bd] py-8">
+        <h2 className="text-2xl font-semibold">Die wichtigsten Typen</h2>
+        <PythonTypesTable />
+      </section>
+
+      <section className="mt-10">
+        <h2 className="text-2xl font-semibold">Zahlen</h2>
+        <p className="mt-4 leading-8 text-[#4d554c]">
+          Ganze Zahlen heißen <span className="font-mono">int</span>. Kommazahlen
+          heißen <span className="font-mono">float</span>. In Karel verwenden
+          wir meistens <span className="font-mono">int</span>, weil wir Schritte,
+          Beeper und Wiederholungen zählen.
+        </p>
+        <CodeSnippet>{`steps = 0
+steps = steps + 1
+
+height = 1.75`}</CodeSnippet>
+      </section>
+
+      <section className="mt-10">
+        <h2 className="text-2xl font-semibold">Text und Wahrheitswerte</h2>
+        <p className="mt-4 leading-8 text-[#4d554c]">
+          Textwerte heißen <span className="font-mono">str</span>. Wahrheitswerte
+          heißen <span className="font-mono">bool</span> und können nur
+          <span className="font-mono"> True</span> oder
+          <span className="font-mono"> False</span> sein.
+        </p>
+        <CodeSnippet>{`color = "blue"        # str
+is_finished = False   # bool
+
+if color == "blue":
+    paint_field(color)`}</CodeSnippet>
+      </section>
+
+      <section className="mt-10">
+        <h2 className="text-2xl font-semibold">Sammlungen</h2>
+        <p className="mt-4 leading-8 text-[#4d554c]">
+          Sammlungen speichern mehrere Werte in einer Variable. Listen kannst du
+          verändern, Tupel bleiben fest, Dictionaries ordnen Namen oder Schlüssel
+          bestimmten Werten zu, und Sets speichern jeden Wert nur einmal.
+        </p>
+        <CodeSnippet>{`colors = ["blue", "yellow", "green"]   # list
+start = (1, 1)                         # tuple
+karel = {"row": 1, "col": 3}           # dict
+visited_cols = {1, 2, 3}               # set`}</CodeSnippet>
+      </section>
+
+      <section className="mt-10">
+        <h2 className="text-2xl font-semibold">Kein Wert</h2>
+        <p className="mt-4 leading-8 text-[#4d554c]">
+          <span className="font-mono">None</span> bedeutet, dass gerade kein
+          sinnvoller Wert vorhanden ist. Das ist nicht dasselbe wie
+          <span className="font-mono"> 0</span>, ein leerer String oder
+          <span className="font-mono"> False</span>.
+        </p>
+        <CodeSnippet>{`best_path = None`}</CodeSnippet>
+      </section>
+
+      <section className="mt-10 bg-white p-5 border border-[#d8d0bd]">
+        <h2 className="text-2xl font-semibold">Was unser Karel-Runner davon unterstützt</h2>
+        <p className="mt-4 leading-8 text-[#4d554c]">
+          In den interaktiven Aufgaben unterstützt der Runner aktuell
+          Ganzzahl-Variablen, String-Variablen für Farbnamen und einfache
+          Vergleiche. Die übrigen Python-Typen lernst du hier kennen, damit du
+          sie später in richtigen Python-Programmen wiedererkennst.
+        </p>
       </section>
     </article>
   );
@@ -1311,13 +1656,27 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
   }
 
   const exercises = getChapterExercises(chapter.slug);
+  const chapterCompletion = await getChapterCompletion(exercises.map((exercise) => exercise.slug));
   const chapters = getChapters().filter((item) => item.slug !== 'referenz');
+  const chapterCompletions = await getChapterCompletions(chapters);
+  const completedChapterSlugs = chapters
+    .filter((item) => chapterCompletions[item.slug]?.isComplete)
+    .map((item) => item.slug);
   const chapterIndex = chapters.findIndex((item) => item.slug === chapter.slug);
   const nextChapter = chapterIndex >= 0 ? (chapters[chapterIndex + 1] ?? null) : null;
 
   return (
-    <ReaderShell activeSlug={chapter.slug}>
+    <ReaderShell
+      activeSlug={chapter.slug}
+      authSlot={<AuthStatus />}
+      completedChapterSlugs={completedChapterSlugs}
+    >
       <div>
+        <ChapterProgressBanner
+          completedCount={chapterCompletion.completedCount}
+          isComplete={chapterCompletion.isComplete}
+          totalCount={chapterCompletion.totalCount}
+        />
         {chapter.slug === 'programmieren' ? (
           <ChapterTwoContent exercises={exercises} orderIndex={chapter.orderIndex} />
         ) : chapter.slug === 'neue-funktionen' ? (
@@ -1338,6 +1697,12 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
           <ChapterTenContent />
         ) : chapter.slug === 'uebungen' ? (
           <ChapterElevenContent exercises={exercises} orderIndex={chapter.orderIndex} />
+        ) : chapter.slug === 'variablen' ? (
+          <ChapterVariablesContent exercises={exercises} orderIndex={chapter.orderIndex} />
+        ) : chapter.slug === 'string-variablen' ? (
+          <ChapterStringVariablesContent exercises={exercises} orderIndex={chapter.orderIndex} />
+        ) : chapter.slug === 'python-typen' ? (
+          <ChapterPythonTypesContent orderIndex={chapter.orderIndex} />
         ) : (
           <ChapterOneContent exercises={exercises} orderIndex={chapter.orderIndex} />
         )}

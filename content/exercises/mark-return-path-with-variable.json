@@ -1,0 +1,163 @@
+{
+  "slug": "mark-return-path-with-variable",
+  "title": "Rückweg mit Variable markieren",
+  "prompt": "Karel soll bis zur Wand laufen, die Anzahl der Schritte in einer Variable speichern und auf dem Rückweg jedes gelaufene Feld mit einem Beeper markieren.",
+  "difficulty": "medium",
+  "orderIndex": 1,
+  "concepts": ["variables", "while-loops", "for-loops"],
+  "starterCode": "from karel import *\n\n\ndef main():\n    steps = 0\n    while front_is_clear():\n        move()\n        steps = steps + 1\n\n    turn_around()\n    for i in range(steps):\n        put_beeper()\n        if front_is_clear():\n            move()\n",
+  "initialWorld": {
+    "rows": 1,
+    "cols": 4,
+    "karel": {
+      "row": 1,
+      "col": 1,
+      "direction": "east",
+      "beeperBag": 3
+    },
+    "beepers": [],
+    "walls": []
+  },
+  "goalWorld": {
+    "rows": 1,
+    "cols": 4,
+    "karel": {
+      "row": 1,
+      "col": 1,
+      "direction": "west",
+      "beeperBag": 0
+    },
+    "beepers": [
+      {
+        "row": 1,
+        "col": 2,
+        "count": 1
+      },
+      {
+        "row": 1,
+        "col": 3,
+        "count": 1
+      },
+      {
+        "row": 1,
+        "col": 4,
+        "count": 1
+      }
+    ],
+    "walls": []
+  },
+  "hints": [
+    {
+      "body": "Erhöhe steps direkt nach jedem move() um 1."
+    },
+    {
+      "body": "range(steps) wiederholt den Rückweg genau so oft, wie Karel vorher gelaufen ist."
+    },
+    {
+      "body": "Das if im Rückweg verhindert, dass Karel am Ende gegen die Wand läuft."
+    }
+  ],
+  "tests": [
+    {
+      "name": "Vier Felder",
+      "isHidden": false,
+      "orderIndex": 1,
+      "initialWorld": {
+        "rows": 1,
+        "cols": 4,
+        "karel": {
+          "row": 1,
+          "col": 1,
+          "direction": "east",
+          "beeperBag": 3
+        },
+        "beepers": [],
+        "walls": []
+      },
+      "goalWorld": {
+        "rows": 1,
+        "cols": 4,
+        "karel": {
+          "row": 1,
+          "col": 1,
+          "direction": "west",
+          "beeperBag": 0
+        },
+        "beepers": [
+          {
+            "row": 1,
+            "col": 2,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 3,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 4,
+            "count": 1
+          }
+        ],
+        "walls": []
+      }
+    },
+    {
+      "name": "Sechs Felder",
+      "isHidden": false,
+      "orderIndex": 2,
+      "initialWorld": {
+        "rows": 1,
+        "cols": 6,
+        "karel": {
+          "row": 1,
+          "col": 1,
+          "direction": "east",
+          "beeperBag": 5
+        },
+        "beepers": [],
+        "walls": []
+      },
+      "goalWorld": {
+        "rows": 1,
+        "cols": 6,
+        "karel": {
+          "row": 1,
+          "col": 1,
+          "direction": "west",
+          "beeperBag": 0
+        },
+        "beepers": [
+          {
+            "row": 1,
+            "col": 2,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 3,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 4,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 5,
+            "count": 1
+          },
+          {
+            "row": 1,
+            "col": 6,
+            "count": 1
+          }
+        ],
+        "walls": []
+      }
+    }
+  ],
+  "isPublished": true
+}

@@ -1,0 +1,117 @@
+{
+  "slug": "paint-line-with-color-variable",
+  "title": "Farbe einmal speichern",
+  "prompt": "Karel soll die ganze Straße blau bemalen. Speichere den Farbnamen einmal in der Variable color und verwende diese Variable bei paint_field().",
+  "difficulty": "easy",
+  "orderIndex": 1,
+  "concepts": ["string-variables", "paint-field", "while-loops"],
+  "starterCode": "from karel import *\n\n\ndef main():\n    color = \"blue\"\n\n    while front_is_clear():\n        paint_field(color)\n        move()\n    paint_field(color)\n",
+  "initialWorld": {
+    "rows": 1,
+    "cols": 4,
+    "karel": {
+      "row": 1,
+      "col": 1,
+      "direction": "east",
+      "beeperBag": 0
+    },
+    "beepers": [],
+    "walls": []
+  },
+  "goalWorld": {
+    "rows": 1,
+    "cols": 4,
+    "karel": {
+      "row": 1,
+      "col": 4,
+      "direction": "east",
+      "beeperBag": 0
+    },
+    "beepers": [],
+    "walls": [],
+    "paintedCorners": [
+      {
+        "row": 1,
+        "col": 1,
+        "color": "blue"
+      },
+      {
+        "row": 1,
+        "col": 2,
+        "color": "blue"
+      },
+      {
+        "row": 1,
+        "col": 3,
+        "color": "blue"
+      },
+      {
+        "row": 1,
+        "col": 4,
+        "color": "blue"
+      }
+    ]
+  },
+  "hints": [
+    {
+      "body": "Der Farbnamen-Text steht in Anführungszeichen: color = \"blue\"."
+    },
+    {
+      "body": "paint_field(color) verwendet den Wert, der in color gespeichert ist."
+    }
+  ],
+  "tests": [
+    {
+      "name": "Vier blaue Felder",
+      "isHidden": false,
+      "orderIndex": 1,
+      "initialWorld": {
+        "rows": 1,
+        "cols": 4,
+        "karel": {
+          "row": 1,
+          "col": 1,
+          "direction": "east",
+          "beeperBag": 0
+        },
+        "beepers": [],
+        "walls": []
+      },
+      "goalWorld": {
+        "rows": 1,
+        "cols": 4,
+        "karel": {
+          "row": 1,
+          "col": 4,
+          "direction": "east",
+          "beeperBag": 0
+        },
+        "beepers": [],
+        "walls": [],
+        "paintedCorners": [
+          {
+            "row": 1,
+            "col": 1,
+            "color": "blue"
+          },
+          {
+            "row": 1,
+            "col": 2,
+            "color": "blue"
+          },
+          {
+            "row": 1,
+            "col": 3,
+            "color": "blue"
+          },
+          {
+            "row": 1,
+            "col": 4,
+            "color": "blue"
+          }
+        ]
+      }
+    }
+  ],
+  "isPublished": true
+}

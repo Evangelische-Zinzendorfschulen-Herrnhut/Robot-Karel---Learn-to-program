@@ -58,6 +58,8 @@ type BlockBounds =
       ok: false;
       error: KarelRuntimeError;
     };
+type VariableValue = number | string;
+type VariableEnvironment = Map<string, VariableValue>;
 
 const leftTurn: Record<Direction, Direction> = {
   north: 'west',
@@ -205,7 +207,7 @@ function parseCommand(line: string, lineNumber: number): string | null | KarelRu
     return {
       code: 'python_error',
       line: lineNumber,
-      message: `Zeile ${lineNumber}: Dieser einfache Runner versteht gerade nur Funktionsaufrufe wie move().`,
+      message: `Zeile ${lineNumber}: Dieser einfache Runner versteht gerade nur Karel-Befehle, einfache Variablen und Kontrollstrukturen.`,
     };
   }
 
@@ -312,6 +314,7 @@ export function runKarelCode(initialWorld: KarelWorld, code: string): CodeRunRes
   }
 
   let world = initialWorld;
+  const variables: VariableEnvironment = new Map();
   const commands: KarelCommand[] = [];
   const steps: KarelExecutionStep[] = [];
   let callDepth = 0;
@@ -348,7 +351,162 @@ export function runKarelCode(initialWorld: KarelWorld, code: string): CodeRunRes
     );
   }
 
-  function evaluateCondition(conditionName: string, lineNumber: number): boolean | KarelRuntimeError {
+  function evaluateExpression(expression: string, lineNumber: number): VariableValue | KarelRuntimeError {
+    const trimmed = expression.trim();
+
+    if (/^-?\d+$/.test(trimmed)) {
+      return Number(trimmed);
+    }
+
+    const stringMatch = trimmed.match(/^["']([a-z]+)["']$/);
+
+    if (stringMatch) {
+      return stringMatch[1];
+    }
+
+    const variableMatch = trimmed.match(/^[a-z_][a-z0-9_]*$/);
+
+    if (variableMatch) {
+      const value = variables.get(trimmed);
+
+      if (value === undefined) {
+        return {
+          code: 'python_error',
+          line: lineNumber,
+          message: `Zeile ${lineNumber}: Die Variable ${trimmed} hat noch keinen Wert.`,
+        };
+      }
+
+      return value;
+    }
+
+    const operationMatch = trimmed.match(/^(.+?)\s*([+-])\s*(.+)$/);
+
+    if (operationMatch) {
+      const left = evaluateExpression(operationMatch[1], lineNumber);
+
+      if (typeof left === 'object') {
+        return left;
+      }
+
+      const right = evaluateExpression(operationMatch[3], lineNumber);
+
+      if (typeof right === 'object') {
+        return right;
+      }
+
+      if (typeof left !== 'number' || typeof right !== 'number') {
+        return {
+          code: 'python_error',
+          line: lineNumber,
+          message: `Zeile ${lineNumber}: Mit + und - kann dieser Runner nur Zahlen verändern.`,
+        };
+      }
+
+      return operationMatch[2] === '+' ? left + right : left - right;
+    }
+
+    return {
+      code: 'python_error',
+      line: lineNumber,
+      message: `Zeile ${lineNumber}: Dieser Ausdruck wird noch nicht unterstützt.`,
+    };
+  }
+
+  function evaluateIntegerExpression(expression: string, lineNumber: number): number | KarelRuntimeError {
+    const value = evaluateExpression(expression, lineNumber);
+
+    if (typeof value === 'object') {
+      return value;
+    }
+
+    if (typeof value !== 'number') {
+      return {
+        code: 'python_error',
+        line: lineNumber,
+        message: `Zeile ${lineNumber}: Hier wird eine Zahl erwartet.`,
+      };
+    }
+
+    return value;
+  }
+
+  function evaluateStringExpression(expression: string, lineNumber: number): string | KarelRuntimeError {
+    const value = evaluateExpression(expression, lineNumber);
+
+    if (typeof value === 'object') {
+      return value;
+    }
+
+    if (typeof value !== 'string') {
+      return {
+        code: 'python_error',
+        line: lineNumber,
+        message: `Zeile ${lineNumber}: Hier wird ein Textwert wie "blue" erwartet.`,
+      };
+    }
+
+    return value;
+  }
+
+  function assignVariable(name: string, expression: string, lineNumber: number): KarelRuntimeError | null {
+    const value = evaluateExpression(expression, lineNumber);
+
+    if (typeof value === 'object') {
+      return value;
+    }
+
+    variables.set(name, value);
+    return null;
+  }
+
+  function evaluateCondition(conditionExpression: string, lineNumber: number): boolean | KarelRuntimeError {
+    const comparisonMatch = conditionExpression.match(/^(.+?)\s*(==|!=|<=|>=|<|>)\s*(.+)$/);
+
+    if (comparisonMatch) {
+      const left = evaluateExpression(comparisonMatch[1], lineNumber);
+
+      if (typeof left === 'object') {
+        return left;
+      }
+
+      const right = evaluateExpression(comparisonMatch[3], lineNumber);
+
+      if (typeof right === 'object') {
+        return right;
+      }
+
+      if (typeof left === 'string' || typeof right === 'string') {
+        if (comparisonMatch[2] === '==') return left === right;
+        if (comparisonMatch[2] === '!=') return left !== right;
+
+        return {
+          code: 'python_error',
+          line: lineNumber,
+          message: `Zeile ${lineNumber}: Texte können nur mit == oder != verglichen werden.`,
+        };
+      }
+
+      if (comparisonMatch[2] === '==') return left === right;
+      if (comparisonMatch[2] === '!=') return left !== right;
+      if (comparisonMatch[2] === '<=') return left <= right;
+      if (comparisonMatch[2] === '>=') return left >= right;
+      if (comparisonMatch[2] === '<') return left < right;
+      return left > right;
+    }
+
+    const conditionMatch = conditionExpression.match(/^([a-z_][a-z0-9_]*)\(\)$/);
+
+    if (!conditionMatch) {
+      return {
+        code: 'python_error',
+        line: lineNumber,
+        message: `Zeile ${lineNumber}: Diese Bedingung wird noch nicht unterstützt.`,
+      };
+    }
+
+    const conditionName = conditionMatch[1];
+
     if (conditionName === 'front_is_clear') {
       return frontIsClear(world);
     }
@@ -473,7 +631,13 @@ export function runKarelCode(initialWorld: KarelWorld, code: string): CodeRunRes
     return null;
   }
 
-  function paintField(color: string, lineNumber: number): KarelRuntimeError | null {
+  function paintField(colorExpression: string, lineNumber: number): KarelRuntimeError | null {
+    const color = evaluateStringExpression(colorExpression, lineNumber);
+
+    if (typeof color === 'object') {
+      return color;
+    }
+
     if (!/^[a-z]+$/.test(color)) {
       return {
         code: 'python_error',
@@ -556,12 +720,40 @@ export function runKarelCode(initialWorld: KarelWorld, code: string): CodeRunRes
       }
 
       const trimmed = line.trim();
-      const forMatch = trimmed.match(/^for\s+[a-z_][a-z0-9_]*\s+in\s+range\(\s*(\d+)\s*\)\s*:\s*$/);
-      const whileMatch = trimmed.match(/^while\s+([a-z_][a-z0-9_]*)\(\)\s*:\s*$/);
-      const ifMatch = trimmed.match(/^if\s+([a-z_][a-z0-9_]*)\(\)\s*:\s*$/);
+      const assignmentMatch = trimmed.match(/^([a-z_][a-z0-9_]*)\s*=\s*(.+)$/);
+      const forMatch = trimmed.match(/^for\s+[a-z_][a-z0-9_]*\s+in\s+range\(\s*(.+)\s*\)\s*:\s*$/);
+      const whileMatch = trimmed.match(/^while\s+(.+)\s*:\s*$/);
+      const ifMatch = trimmed.match(/^if\s+(.+)\s*:\s*$/);
+
+      if (assignmentMatch) {
+        const error = assignVariable(assignmentMatch[1], assignmentMatch[2], lineNumber);
+
+        if (error) {
+          return { nextIndex: index, error };
+        }
+
+        index += 1;
+        continue;
+      }
 
       if (forMatch) {
-        const count = Number(forMatch[1]);
+        const count = evaluateIntegerExpression(forMatch[1], lineNumber);
+
+        if (typeof count === 'object') {
+          return { nextIndex: index, error: count };
+        }
+
+        if (count < 0) {
+          return {
+            nextIndex: index,
+            error: {
+              code: 'python_error',
+              line: lineNumber,
+              message: `Zeile ${lineNumber}: range() braucht eine Zahl ab 0.`,
+            } satisfies KarelRuntimeError,
+          };
+        }
+
         const block = getBlockBounds(lines, index, indent, lineNumber, 'Eine for-Schleife');
 
         if (!block.ok) {
@@ -581,7 +773,7 @@ export function runKarelCode(initialWorld: KarelWorld, code: string): CodeRunRes
       }
 
       if (whileMatch) {
-        const conditionName = whileMatch[1];
+        const conditionExpression = whileMatch[1];
         const block = getBlockBounds(lines, index, indent, lineNumber, 'Eine while-Schleife');
 
         if (!block.ok) {
@@ -589,7 +781,7 @@ export function runKarelCode(initialWorld: KarelWorld, code: string): CodeRunRes
         }
 
         while (true) {
-          const condition = evaluateCondition(conditionName, lineNumber);
+          const condition = evaluateCondition(conditionExpression, lineNumber);
 
           if (typeof condition === 'object') {
             return { nextIndex: index, error: condition };
@@ -622,7 +814,7 @@ export function runKarelCode(initialWorld: KarelWorld, code: string): CodeRunRes
       }
 
       if (ifMatch) {
-        const conditionName = ifMatch[1];
+        const conditionExpression = ifMatch[1];
         const ifBlock = getBlockBounds(lines, index, indent, lineNumber, 'Eine if-Anweisung');
 
         if (!ifBlock.ok) {
@@ -654,7 +846,7 @@ export function runKarelCode(initialWorld: KarelWorld, code: string): CodeRunRes
           }
         }
 
-        const condition = evaluateCondition(conditionName, lineNumber);
+        const condition = evaluateCondition(conditionExpression, lineNumber);
 
         if (typeof condition === 'object') {
           return { nextIndex: index, error: condition };
@@ -685,7 +877,7 @@ export function runKarelCode(initialWorld: KarelWorld, code: string): CodeRunRes
         };
       }
 
-      const paintMatch = trimmed.match(/^paint_field\(\s*["']([a-z]+)["']\s*\)$/);
+      const paintMatch = trimmed.match(/^paint_field\(\s*(.+)\s*\)$/);
 
       if (paintMatch) {
         const error = paintField(paintMatch[1], lineNumber);

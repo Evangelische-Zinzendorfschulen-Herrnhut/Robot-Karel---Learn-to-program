@@ -2,8 +2,10 @@
 
 import { type KeyboardEvent, useEffect, useMemo, useRef, useState } from 'react';
 
+import { saveExerciseCodeAction, type SaveExerciseCodeResult } from '@/app/lernen/actions';
 import type { Exercise, TestResult } from '@/domain/course';
 import type { KarelCommand, KarelRuntimeError, KarelWorld } from '@/domain/karel';
+import type { ExerciseCodeSnapshotStatus } from '@/lib/course/progress';
 import { type KarelExecutionStep, runKarelCode } from '@/lib/karel/code-runner';
 import { describeGoalWorld } from '@/lib/karel/describe-goal';
 import { worldMatchesGoal } from '@/lib/karel/goal';
@@ -11,14 +13,44 @@ import { KarelWorldView } from '@/components/karel/karel-world-view';
 
 type KarelCommandPanelProps = {
   exercise: Exercise;
+  initialCode?: string;
+  initialStatus?: ExerciseCodeSnapshotStatus;
 };
 
-export function KarelCommandPanel({ exercise }: KarelCommandPanelProps) {
-  const [code, setCode] = useState(exercise.starterCode);
+function getSaveMessage(result: SaveExerciseCodeResult | null) {
+  if (!result) {
+    return null;
+  }
+
+  if (result.status === 'saved') {
+    return 'Code gespeichert.';
+  }
+
+  if (result.status === 'unauthenticated') {
+    return 'Melde dich an, um Code zu speichern.';
+  }
+
+  if (result.status === 'missing-table') {
+    return 'Die Tabelle zum Speichern fehlt noch in Supabase.';
+  }
+
+  if (result.status === 'not-configured') {
+    return 'Supabase ist lokal noch nicht konfiguriert.';
+  }
+
+  return `Code konnte nicht gespeichert werden: ${result.message}`;
+}
+
+export function KarelCommandPanel({ exercise, initialCode, initialStatus }: KarelCommandPanelProps) {
+  const [code, setCode] = useState(initialCode ?? exercise.starterCode);
   const [world, setWorld] = useState(exercise.initialWorld);
   const [history, setHistory] = useState<KarelCommand[]>([]);
   const [error, setError] = useState<KarelRuntimeError | null>(null);
   const [testResults, setTestResults] = useState<TestResult[]>([]);
+  const [savedExerciseStatus, setSavedExerciseStatus] =
+    useState<ExerciseCodeSnapshotStatus | null>(initialStatus ?? null);
+  const [saveState, setSaveState] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
+  const [saveResult, setSaveResult] = useState<SaveExerciseCodeResult | null>(null);
   const [stepMode, setStepMode] = useState(false);
   const [activeLine, setActiveLine] = useState<number | null>(null);
   const [replay, setReplay] = useState<{
@@ -30,6 +62,7 @@ export function KarelCommandPanel({ exercise }: KarelCommandPanelProps) {
   const highlightLayerRef = useRef<HTMLPreElement>(null);
   const lineNumberLayerRef = useRef<HTMLPreElement>(null);
   const solved = useMemo(() => worldMatchesGoal(world, exercise.goalWorld), [exercise.goalWorld, world]);
+  const feedbackSolved = solved || savedExerciseStatus === 'passed';
   const goalDescription = useMemo(() => describeGoalWorld(exercise.goalWorld), [exercise.goalWorld]);
   const codeLines = useMemo(() => code.split('\n'), [code]);
   const isReplaying = replay !== null;
@@ -88,10 +121,27 @@ export function KarelCommandPanel({ exercise }: KarelCommandPanelProps) {
     return () => window.clearTimeout(timeout);
   }, [replay]);
 
+  async function saveLatestCode(nextCode: string, passed: boolean) {
+    setSaveState('saving');
+    setSaveResult(null);
+
+    const result = await saveExerciseCodeAction({
+      code: nextCode,
+      exerciseSlug: exercise.slug,
+      passed,
+    });
+
+    setSaveResult(result);
+    setSaveState(result.status === 'saved' ? 'saved' : 'error');
+  }
+
   function runCode() {
     const result = runKarelCode(exercise.initialWorld, code);
     const nextTestResults = runTests(code);
+    const nextSolved = worldMatchesGoal(result.world, exercise.goalWorld);
     setTestResults(nextTestResults);
+    setSavedExerciseStatus(nextSolved ? 'passed' : 'needs_retry');
+    void saveLatestCode(code, nextSolved);
 
     if (!stepMode) {
       setReplay(null);
@@ -126,6 +176,9 @@ export function KarelCommandPanel({ exercise }: KarelCommandPanelProps) {
     setReplay(null);
     setActiveLine(null);
     setTestResults([]);
+    setSavedExerciseStatus(null);
+    setSaveState('idle');
+    setSaveResult(null);
     setCode(nextCode);
   }
 
@@ -255,6 +308,13 @@ export function KarelCommandPanel({ exercise }: KarelCommandPanelProps) {
               Aktuell unterstützt der Runner Karel-Befehle, eigene Funktionen und einfache
               for- und while-Schleifen.
             </p>
+            <p
+              className={`mt-2 text-xs leading-5 ${
+                saveState === 'error' ? 'text-[#9a2f2f]' : 'text-[#5f665e]'
+              }`}
+            >
+              {saveState === 'saving' ? 'Code wird gespeichert...' : getSaveMessage(saveResult)}
+            </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
             <button
@@ -299,8 +359,8 @@ export function KarelCommandPanel({ exercise }: KarelCommandPanelProps) {
             </p>
             <p>
               Status:{' '}
-              <span className={solved ? 'font-semibold text-[#2d6b3f]' : 'font-semibold text-[#8a6424]'}>
-                {solved ? 'Ziel erreicht' : 'Noch nicht gelöst'}
+              <span className={feedbackSolved ? 'font-semibold text-[#2d6b3f]' : 'font-semibold text-[#8a6424]'}>
+                {feedbackSolved ? 'Ziel erreicht' : 'Noch nicht gelöst'}
               </span>
             </p>
             {error ? <p className="mt-2 font-semibold text-[#9a2f2f]">{error.message}</p> : null}
