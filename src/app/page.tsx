@@ -1,6 +1,49 @@
 import Link from 'next/link';
 
+import { signOutAction } from '@/app/auth/actions';
 import { AuthStatus } from '@/components/auth/auth-status';
+import { hasSupabaseEnv } from '@/lib/supabase/env';
+import { createClient } from '@/lib/supabase/server';
+
+async function HomeAuthAction() {
+  if (!hasSupabaseEnv()) {
+    return (
+      <Link
+        className="inline-flex h-11 items-center border border-[#20231f] px-5 text-sm font-semibold text-[#20231f] transition-colors hover:border-[#3d6f5a] hover:text-[#3d6f5a]"
+        href="/auth/login"
+      >
+        Anmelden
+      </Link>
+    );
+  }
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return (
+      <Link
+        className="inline-flex h-11 items-center border border-[#20231f] px-5 text-sm font-semibold text-[#20231f] transition-colors hover:border-[#3d6f5a] hover:text-[#3d6f5a]"
+        href="/auth/login"
+      >
+        Anmelden
+      </Link>
+    );
+  }
+
+  return (
+    <form action={signOutAction}>
+      <button
+        className="inline-flex h-11 items-center border border-[#20231f] px-5 text-sm font-semibold text-[#20231f] transition-colors hover:border-[#3d6f5a] hover:text-[#3d6f5a]"
+        type="submit"
+      >
+        Abmelden
+      </button>
+    </form>
+  );
+}
 
 export default function Home() {
   return (
@@ -20,8 +63,11 @@ export default function Home() {
             Python programmieren lernen, Schritt für Schritt.
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-[#4d554c]">
-            Eine spec-first Lernplattform mit Kapiteln, Login, gespeicherten
-            Fortschritten und interaktiven Karel-Aufgaben im Browser.
+            Für Schüler:innen der 9. und 10. Klasse: Öffne den Kurs und beginne
+            direkt mit den ersten Karel-Aufgaben im Browser. Mit Anmeldung
+            werden dein letzter Code, gelöste Aufgaben und vollständig
+            bearbeitete Kapitel gespeichert, damit du später in der Schule oder
+            zuhause weiterarbeiten kannst.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
@@ -30,12 +76,7 @@ export default function Home() {
             >
               Kurs öffnen
             </Link>
-            <Link
-              className="inline-flex h-11 items-center border border-[#20231f] px-5 text-sm font-semibold text-[#20231f] transition-colors hover:border-[#3d6f5a] hover:text-[#3d6f5a]"
-              href="/auth/login"
-            >
-              Anmelden
-            </Link>
+            <HomeAuthAction />
           </div>
           <div className="mt-10 grid gap-4 sm:grid-cols-3">
             <div className="border border-[#d8d0bd] bg-white p-5">
