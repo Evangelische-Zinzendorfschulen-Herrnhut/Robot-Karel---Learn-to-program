@@ -63,11 +63,10 @@ export default function Home() {
             Python programmieren lernen, Schritt für Schritt.
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-[#4d554c]">
-            Für Schüler:innen der 9. und 10. Klasse: Öffne den Kurs und beginne
-            direkt mit den ersten Karel-Aufgaben im Browser. Mit Anmeldung
-            werden dein letzter Code, gelöste Aufgaben und vollständig
-            bearbeitete Kapitel gespeichert, damit du später in der Schule oder
-            zuhause weiterarbeiten kannst.
+            Öffne den Kurs und beginne direkt mit den ersten Karel-Aufgaben im
+            Browser. Mit Anmeldung werden dein letzter Code, gelöste Aufgaben
+            und vollständig bearbeitete Kapitel gespeichert, damit du später in
+            der Schule oder zuhause weiterarbeiten kannst.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
